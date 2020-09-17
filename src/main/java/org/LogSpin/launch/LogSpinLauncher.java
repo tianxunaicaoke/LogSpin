@@ -1,7 +1,8 @@
-package launch;
+package org.LogSpin.launch;
 
-import core.Spin;
-import factory.ScriptRelatedFactory;
+
+import org.LogSpin.core.Spin;
+import org.LogSpin.factory.ScriptRelatedFactory;
 
 public class LogSpinLauncher {
     static ScriptRelatedFactory scriptRelatedFactory = new ScriptRelatedFactory();

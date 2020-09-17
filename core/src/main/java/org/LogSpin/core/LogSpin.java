@@ -1,9 +1,11 @@
-package core;
+package org.LogSpin.core;
 
-import plugin.Plugin;
-import script.ScriptRunner;
+
+import org.LogSpin.plugin.Plugin;
+import org.LogSpin.script.ScriptRunner;
 
 public class LogSpin implements Spin {
+
     PluginContainer<Plugin> pluginContainer;
     ScriptRunner scriptRunner;
 

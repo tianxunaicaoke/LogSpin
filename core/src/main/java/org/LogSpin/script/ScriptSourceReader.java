@@ -1,4 +1,4 @@
-package script;
+package org.LogSpin.script;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

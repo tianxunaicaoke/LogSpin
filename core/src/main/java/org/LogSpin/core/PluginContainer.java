@@ -1,6 +1,7 @@
-package core;
+package org.LogSpin.core;
 
-import plugin.Plugin;
+
+import org.LogSpin.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;

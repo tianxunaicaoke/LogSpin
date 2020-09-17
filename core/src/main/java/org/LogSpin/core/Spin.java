@@ -1,4 +1,4 @@
-package core;
+package org.LogSpin.core;
 
 /**
  * This interface represent the once log analysis carrier

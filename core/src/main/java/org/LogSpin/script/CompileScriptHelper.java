@@ -1,4 +1,4 @@
-package script;
+package org.LogSpin.script;
 
 import groovy.lang.GroovyClassLoader;
 import org.codehaus.groovy.control.CompilerConfiguration;

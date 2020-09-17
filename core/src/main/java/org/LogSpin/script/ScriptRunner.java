@@ -1,5 +1,4 @@
-package script;
-
+package org.LogSpin.script;
 
 import groovy.lang.Binding;
 import groovy.lang.Script;
