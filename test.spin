@@ -1,30 +1,5 @@
-apply navigationPlugin 
-apply searchPlugin  
-apply mapEnginePlugin 
-apply NavkitPlugin 
-apply clusterPlugin
-apply "Denali-MY21-Info.spin"
+apply "BasePlugin"
 
 info {
-  region {
-    key "current region: value"
-	value ""
-	descript "Region"
-  }
-  version {
-    key ""
-	value ""
-	descript "app version"
-  }
-}
-
-rule{
-  "" mustAfter ""
-  "" shouldAfter ""
-}
-
-chart{
-  chatType "pin"
-  datax " "
-  datay " "
+   println "hello LogSpin"
 }

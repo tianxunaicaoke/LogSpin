@@ -7,10 +7,13 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 public class ScriptRunner {
     CompileScriptHelper compileScriptHelper;
     ScriptSourceReader scriptSourceReader;
-
-    public ScriptRunner(CompileScriptHelper compileScriptHelper, ScriptSourceReader scriptSourceReader) {
+    ScriptDelegate scriptDelegate;
+    public ScriptRunner(CompileScriptHelper compileScriptHelper,
+                        ScriptSourceReader scriptSourceReader,
+                        ScriptDelegate scriptDelegate) {
         this.compileScriptHelper = compileScriptHelper;
         this.scriptSourceReader = scriptSourceReader;
+        this.scriptDelegate = scriptDelegate;
     }
 
     public void runScriptToConfigSpin(String[] args) {
@@ -28,6 +31,7 @@ public class ScriptRunner {
         Binding binding = new Binding();
         Class<?> clazz = compileScriptHelper.compileScript(source, "Logspin");
         Script script = InvokerHelper.createScript(clazz, binding);
+        ((BaseScript) script).init(scriptDelegate);
         script.run();
     }
 

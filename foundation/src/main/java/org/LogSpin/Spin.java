@@ -1,4 +1,5 @@
-package org.LogSpin.core;
+package org.LogSpin;
+
 
 /**
  * This interface represent the once log analysis carrier
@@ -6,4 +7,6 @@ package org.LogSpin.core;
 public interface Spin {
     void configure(String[] arg);
     void analyse();
+    PluginContainer<Plugin> getPluginContainer();
+    PluginManager getPluginManager();
 }
