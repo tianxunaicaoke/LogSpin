@@ -1,12 +1,12 @@
-package org.LogSpin.core;
+package org.LogSpin.plugin;
 
-
-import org.LogSpin.plugin.Plugin;
+import org.LogSpin.Plugin;
+import org.LogSpin.PluginContainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PluginContainer<T extends Plugin> {
+public class DefaultPluginContainer<T extends Plugin> implements PluginContainer<T> {
     List<T> plugins = new ArrayList<>();
 
     public void addPlugin(T plugin) {
