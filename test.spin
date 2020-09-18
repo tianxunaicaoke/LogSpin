@@ -1,5 +1,11 @@
 apply "BasePlugin"
-
+println "hello LogSpin"
 info {
-   println "hello LogSpin"
+   Region{
+     println "hello Region"
+   }
+   Version{
+      println "hello version"
+   }
 }
+
