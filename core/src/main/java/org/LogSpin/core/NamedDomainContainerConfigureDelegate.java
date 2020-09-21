@@ -4,13 +4,17 @@ import groovy.lang.Closure;
 
 public class NamedDomainContainerConfigureDelegate extends ConfigureDelegate {
     NameDomainContainer<?> container;
-    public NamedDomainContainerConfigureDelegate(Closure closure, NameDomainContainer<?> delegate) {
+    public NamedDomainContainerConfigureDelegate(Closure<?> closure, NameDomainContainer<?> delegate) {
         super(closure, delegate);
         container = delegate;
     }
 
     @Override
     public Object configure(String s, Object[] params) {
-        return container.create(s);
+        Object item = container.create(s);
+        if(params[0] instanceof Closure){
+            ((Closure<?>) params[0]).run();
+        }
+        return item;
     }
 }

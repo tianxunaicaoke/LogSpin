@@ -12,8 +12,8 @@ public class BasePlugin<T extends Spin> implements Plugin<T> {
         System.out.println("BasePlugin");
     }
 
-    public void info(Closure closure) {
-        System.out.println("info");
+    @SuppressWarnings("unused")
+    public void info(Closure<?> closure) {
         infoContainer.configure(closure,infoContainer);
     }
 }
