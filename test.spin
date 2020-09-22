@@ -9,10 +9,7 @@ info {
       println "hello version"
    }
    tt {
-     println "hello inner info"
-     Region{
-          println "inner Region"
-     }
+     println "hello tt"
    }
 }
 

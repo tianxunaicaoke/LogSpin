@@ -16,12 +16,10 @@ public abstract class NameDomainContainer<T> extends AbstractDynamicObject {
         this.list = list;
     }
 
-    public abstract T create(String name);
+    public abstract T create(String name, Object[] args);
 
-    public NameDomainContainer<T> configure(Closure closure,NameDomainContainer container) {
-        ConfigureDelegate containerConfigureDelegate = new NamedDomainContainerConfigureDelegate(closure,container);
-        Closure withNewOwner = closure.rehydrate(container, containerConfigureDelegate, closure.getThisObject());
-        withNewOwner.call();
+    public NameDomainContainer<T> configure(Closure<?> closure,NameDomainContainer<?> container) {
+        ConfigureUtil.configureByDelegate(closure, new NamedDomainContainerConfigureDelegate(closure, container));
         return this;
     }
 }

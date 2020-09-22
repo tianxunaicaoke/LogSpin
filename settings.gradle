@@ -3,4 +3,5 @@ include 'report'
 include 'plugin'
 include 'core'
 include 'foundation'
+include 'logProcess'
 
