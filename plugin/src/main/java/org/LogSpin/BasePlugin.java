@@ -1,7 +1,7 @@
 package org.LogSpin;
 
 import groovy.lang.Closure;
-import reflect.DefaultInstanceCreator;
+import org.LogSpin.reflect.DefaultInstanceCreator;
 
 public class BasePlugin<T extends Spin> implements Plugin<T> {
     InfoContainer infoContainer = new InfoContainer(

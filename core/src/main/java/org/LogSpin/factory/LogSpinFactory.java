@@ -11,34 +11,35 @@ import org.LogSpin.plugin.DefaultPluginContainer;
 import org.LogSpin.script.*;
 
 public class LogSpinFactory {
-    PluginContainer<Plugin> pluginPluginContainer;
+    PluginContainer<Plugin<?>> pluginPluginContainer;
     Spin spin;
-    public LogSpinFactory(){
+
+    public LogSpinFactory() {
         this.pluginPluginContainer = new DefaultPluginContainer<>();
         ScriptDelegate scriptDelegate = provideScriptDelegate();
-        this.spin = new LogSpin(pluginPluginContainer,provideScriptRunner(scriptDelegate));
+        this.spin = new LogSpin(pluginPluginContainer, provideScriptRunner(scriptDelegate));
         scriptDelegate.setSpin(spin);
     }
 
-    public ScriptRunner provideScriptRunner(ScriptDelegate scriptDelegate){
-     return new ScriptRunner(provideCompileScriptHelper(),
-             provideScriptSourceReader(),
-             scriptDelegate);
+    public ScriptRunner provideScriptRunner(ScriptDelegate scriptDelegate) {
+        return new ScriptRunner(provideCompileScriptHelper(),
+                provideScriptSourceReader(),
+                scriptDelegate);
     }
 
-    public ScriptDelegate provideScriptDelegate(){
+    public ScriptDelegate provideScriptDelegate() {
         return new DefaultScriptDelegate();
     }
 
-    public CompileScriptHelper provideCompileScriptHelper(){
+    public CompileScriptHelper provideCompileScriptHelper() {
         return new CompileScriptHelper();
     }
 
-    public ScriptSourceReader provideScriptSourceReader(){
+    public ScriptSourceReader provideScriptSourceReader() {
         return new ScriptSourceReader();
     }
 
-    public Spin provideSpin(){
+    public Spin provideSpin() {
         return spin;
     }
 }

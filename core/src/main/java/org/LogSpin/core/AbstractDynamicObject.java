@@ -4,15 +4,22 @@ import groovy.lang.GroovyObject;
 import groovy.lang.GroovySystem;
 import groovy.lang.MetaClass;
 import groovy.lang.MetaMethod;
+import org.LogSpin.DynamicObject;
 import org.codehaus.groovy.runtime.MetaClassHelper;
 
-public abstract class AbstractDynamicObject implements DynamicObject{
+public abstract class AbstractDynamicObject implements DynamicObject {
+    Object target;
+
+    public Object tryInvokeMethod(String name, Object[] params) {
+        return tryInvokeMethod(target, name, params);
+    }
+
     @Override
     public Object tryInvokeMethod(Object clazz, String name, Object[] params) {
         MetaClass metaClass = getMetaClass(clazz);
         MetaMethod metaMethod = lookupMethod(metaClass, name, convert(params));
-        if(metaMethod != null){
-            metaMethod.doMethodInvoke(clazz,params);
+        if (metaMethod != null) {
+            metaMethod.doMethodInvoke(clazz, params);
             return metaClass;
         }
         return null;
@@ -26,15 +33,15 @@ public abstract class AbstractDynamicObject implements DynamicObject{
         }
     }
 
-    protected MetaMethod lookupMethod(MetaClass metaClass, String name, Class[] arguments) {
+    protected MetaMethod lookupMethod(MetaClass metaClass, String name, Class<?>[] arguments) {
         return metaClass.pickMethod(name, arguments);
     }
 
-    private Class[] convert(Object[] arguments) {
+    private Class<?>[] convert(Object[] arguments) {
         if (arguments == null || arguments.length == 0) {
             return MetaClassHelper.EMPTY_CLASS_ARRAY;
         }
-        Class[] classes = new Class[arguments.length];
+        Class<?>[] classes = new Class[arguments.length];
         for (int i = 0; i < arguments.length; i++) {
             Object argType = arguments[i];
             if (argType == null) {

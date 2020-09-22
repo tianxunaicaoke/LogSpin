@@ -10,11 +10,11 @@ import org.LogSpin.script.ScriptRunner;
 
 public class LogSpin implements Spin {
 
-    PluginContainer<Plugin> pluginContainer;
+    PluginContainer<Plugin<?>> pluginContainer;
     ScriptRunner scriptRunner;
     PluginManager pluginManager;
 
-    public LogSpin(PluginContainer<Plugin> pluginContainer, ScriptRunner scriptRunner) {
+    public LogSpin(PluginContainer<Plugin<?>> pluginContainer, ScriptRunner scriptRunner) {
         this.pluginContainer = pluginContainer;
         this.scriptRunner = scriptRunner;
         this.pluginManager = new DefaultPluginManager();
@@ -31,7 +31,7 @@ public class LogSpin implements Spin {
     }
 
     @Override
-    public PluginContainer<Plugin> getPluginContainer() {
+    public PluginContainer<Plugin<?>> getPluginContainer() {
         return pluginContainer;
     }
 

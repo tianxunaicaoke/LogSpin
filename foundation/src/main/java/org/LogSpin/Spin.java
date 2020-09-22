@@ -7,6 +7,6 @@ package org.LogSpin;
 public interface Spin {
     void configure(String[] arg);
     void analyse();
-    PluginContainer<Plugin> getPluginContainer();
+    PluginContainer<Plugin<?>> getPluginContainer();
     PluginManager getPluginManager();
 }
