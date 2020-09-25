@@ -20,7 +20,7 @@ public class InfoCase extends DefaultCase {
     @Override
     public boolean action(LogProcess logProcess) {
         logProcess.match(list.keySet().toArray(new String[0]));
-        return false;
+        return true;
     }
 
     public static class Builder {
