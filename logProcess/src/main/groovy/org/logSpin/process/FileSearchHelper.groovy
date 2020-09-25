@@ -1,11 +1,36 @@
+package org.logSpin.process
 
-    def search() {
-        File file = new File("C:\\User\\xtian\\Downloads\\Logs\\Logs\\logcat\\NO2-2020-06-24-19-38-40.txt")
-        file.filterLine {
-            line ->
-                ////s.each {
-                    line.contains("loadAppConfig for region")
-                //}
-        }.writeTo(new PrintWriter(System.out))
+import java.lang.reflect.Array
+
+@SuppressWarnings("unused")
+class InfoFileSearchHelper {
+    static def search(SearchBean searchBean) {
+        searchBean.getPath().each { path ->
+            File file = new File(path)
+            file.filterLine {
+                line ->
+                    any(searchBean.getKeys(), line)
+            }.writeTo(new FileWriter("report.txt"))
+        }
     }
 
+    /**
+     * If line contain any of the keys, then return true, and remove the key form keys
+     * @param keys
+     * @param line
+     * @return whether line contain any of the keys
+     */
+    static boolean any(ArrayList<String> keys, String line) {
+        def needRemove = null
+        keys.any {
+            if (line.contains(it)) {
+                needRemove = it
+            }
+        }
+        if (needRemove != null) {
+            keys.remove needRemove
+        }
+    }
+}
+
+new InfoFileSearchHelper()

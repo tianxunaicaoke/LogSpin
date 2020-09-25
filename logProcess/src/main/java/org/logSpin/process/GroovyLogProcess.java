@@ -1,14 +1,19 @@
 package org.logSpin.process;
 
+import groovy.lang.Binding;
 import groovy.lang.GroovyObject;
 import groovy.util.GroovyScriptEngine;
+import groovy.util.ResourceException;
+import groovy.util.ScriptException;
 import org.logSpin.core.DefaultLogProcess;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GroovyLogProcess extends DefaultLogProcess {
 
-    GroovyScriptEngine groovyScriptEngine;
+    private GroovyScriptEngine groovyScriptEngine;
 
     public GroovyLogProcess() {
         try {
@@ -20,16 +25,23 @@ public class GroovyLogProcess extends DefaultLogProcess {
 
     @Override
     public String[] match(String[] key) {
-        Class<GroovyObject> searchHelper = groovyScriptEngine.getGroovyClassLoader().parseClass("FileSearchHelper.groovy");
+        invoke("search", new SearchBean(getLogSet().getLogPath(), new ArrayList(Arrays.asList(key))));
+        return null;
+    }
+
+    @Override
+    public Object invokeMethod(String name, Object... o) {
+        invoke(name, o);
+        return null;
+    }
+
+    private void invoke(String methodName, Object... params) {
+        Binding binding = new Binding();
         try {
-            GroovyObject groovyObject = searchHelper.newInstance();
-            String[] params = new  String[key.length+1];
-            System.arraycopy(key, 0, params, 0, key.length);
-            params[key.length] = getLogSet().getLogPath()[0];
-            groovyObject.invokeMethod("main", null);
-        } catch (InstantiationException | IllegalAccessException e) {
+            GroovyObject groovyObject = (GroovyObject) groovyScriptEngine.run("FileSearchHelper.groovy", binding);
+            groovyObject.invokeMethod(methodName, params);
+        } catch (ResourceException | ScriptException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }
