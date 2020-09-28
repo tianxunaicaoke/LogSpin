@@ -9,8 +9,9 @@ import java.util.List;
 public interface Spin {
     void configure(String[] arg);
     void analyse();
-    PluginContainer<Plugin<?>> getPluginContainer();
+    PluginContainer<Plugin<Spin>> getPluginContainer();
     PluginManager getPluginManager();
     LogProcess getLogProcess();
     List<SpinCase> getResolvedCases();
+    List<SpinCase> getConfiguredCase();
 }

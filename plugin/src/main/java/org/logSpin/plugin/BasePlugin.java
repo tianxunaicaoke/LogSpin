@@ -1,17 +1,17 @@
 package org.logSpin.plugin;
 
 import groovy.lang.Closure;
-import org.logSpin.Info;
-import org.logSpin.LogSet;
-import org.logSpin.Plugin;
-import org.logSpin.Spin;
+import org.logSpin.*;
 
 import org.logSpin.core.ConfigureUtil;
 import org.logSpin.spinCase.InfoCase;
+import org.logSpin.spinCase.RuleCase;
 import org.logSpin.util.SpinLogLog;
 
+import java.util.Iterator;
 import java.util.List;
 
+import static org.logSpin.spinCase.DefaultCase.CaseState.Configured;
 import static org.logSpin.spinCase.DefaultCase.CaseState.Resolved;
 
 @SuppressWarnings("unused")
@@ -39,13 +39,21 @@ public class BasePlugin<T extends Spin> implements Plugin<T> {
         infoContainer.configure(closure, infoContainer);
         List<Info> infoList = infoContainer.getList();
         InfoCase infoCase = new InfoCase.Builder()
-                .caseState(Resolved)
+                .caseState(Configured)
                 .build();
         for (Info info : infoList) {
             SpinLogLog.log(info.toString());
             infoCase.addInfo(info.getKey(), info.getDescription());
         }
-        spin.getResolvedCases().add(infoCase);
+        spin.getConfiguredCase().add(infoCase);
+    }
+
+    public void rule(Closure<?> closure){
+        Rule newRule = new Rule();
+        ConfigureUtil.configureByObject(closure, newRule);
+        RuleCase ruleCase = new RuleCase.Builder()
+                .caseState(Configured)
+                .build();
     }
 
     public void logSet(Closure<?> closure) {
@@ -56,5 +64,25 @@ public class BasePlugin<T extends Spin> implements Plugin<T> {
 
     public void flow(Closure<?> closure) {
         flowContainer.configure(closure, flowContainer);
+    }
+
+    @Override
+    public void resolveCase(T spin) {
+       Iterator<SpinCase> iterator = spin.getConfiguredCase().stream().iterator();
+       resolveInfoCase(iterator);
+    }
+
+    private void resolveInfoCase(Iterator<SpinCase> iterator){
+        InfoCase infoCase = new InfoCase.Builder()
+                .caseState(Resolved)
+                .build();
+        while(iterator.hasNext()){
+            SpinCase spinCase = iterator.next();
+            if(spinCase instanceof InfoCase){
+                infoCase.merge((InfoCase)spinCase);
+                iterator.remove();
+            }
+        }
+        spin.getResolvedCases().add(infoCase);
     }
 }

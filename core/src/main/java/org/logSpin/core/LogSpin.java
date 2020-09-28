@@ -12,6 +12,7 @@ public class LogSpin implements Spin {
     private final ScriptRunner scriptRunner;
     private final PluginManager pluginManager;
     private final List<SpinCase> resolvedCase;
+    private final List<SpinCase> configuredCase;
     private final LogProcess logProcess;
 
     public LogSpin(PluginContainer<Plugin<?>> pluginContainer, ScriptRunner scriptRunner, LogProcess logProcess) {
@@ -19,6 +20,7 @@ public class LogSpin implements Spin {
         this.pluginManager = new DefaultPluginManager(pluginContainer);
         this.logProcess = logProcess;
         this.resolvedCase = new ArrayList<>();
+        this.configuredCase = new ArrayList<>();
     }
 
     @Override
@@ -29,20 +31,25 @@ public class LogSpin implements Spin {
 
 
     private void resolveCase() {
+        getPluginContainer().getPlugins().forEach(
+                plugin ->
+                        plugin.resolveCase(this)
+
+        );
         analyse();
     }
 
     @Override
     public void analyse() {
-        getResolvedCases().forEach(spinCase -> {
-            spinCase.action(getLogProcess());
-        });
+        getResolvedCases().forEach(spinCase ->
+                spinCase.action(getLogProcess())
+        );
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public PluginContainer<Plugin<?>> getPluginContainer() {
-        return (PluginContainer<Plugin<?>>) pluginManager.getPluginContainer();
+    public PluginContainer<Plugin<Spin>> getPluginContainer() {
+        return (PluginContainer<Plugin<Spin>>) pluginManager.getPluginContainer();
     }
 
     @Override
@@ -55,7 +62,13 @@ public class LogSpin implements Spin {
         return logProcess;
     }
 
+    @Override
     public List<SpinCase> getResolvedCases() {
         return resolvedCase;
+    }
+
+    @Override
+    public List<SpinCase> getConfiguredCase() {
+        return configuredCase;
     }
 }

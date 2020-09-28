@@ -8,40 +8,34 @@ import groovy.util.ScriptException;
 import org.logSpin.core.DefaultLogProcess;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class GroovyLogProcess extends DefaultLogProcess {
 
     private GroovyScriptEngine groovyScriptEngine;
+    private static final String GROOVY_URL = "logProcess/src/main/groovy/org/logSpin/process/";
 
     public GroovyLogProcess() {
         try {
-            groovyScriptEngine = new GroovyScriptEngine("D:\\Code\\MyGitCode\\LogSpin\\logProcess\\src\\main\\groovy\\org\\logSpin\\process\\");
+            groovyScriptEngine = new GroovyScriptEngine(GROOVY_URL);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public String[] match(String[] key) {
-        invoke("search", new SearchBean(getLogSet().getLogPath(), new ArrayList(Arrays.asList(key))));
-        return null;
+    public Object invokeMethod(String name, Object... params) {
+        return invoke(name, getLogSet().getLogPath(), params);
     }
 
-    @Override
-    public Object invokeMethod(String name, Object... o) {
-        invoke(name, o);
-        return null;
-    }
-
-    private void invoke(String methodName, Object... params) {
+    private Object invoke(String name, Object... params) {
         Binding binding = new Binding();
         try {
             GroovyObject groovyObject = (GroovyObject) groovyScriptEngine.run("FileSearchHelper.groovy", binding);
-            groovyObject.invokeMethod(methodName, params);
+            groovyObject.invokeMethod(name, params);
         } catch (ResourceException | ScriptException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

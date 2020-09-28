@@ -8,7 +8,7 @@ public abstract class DefaultLogProcess implements LogProcess {
     private LogSet logSet;
 
     public LogSet getLogSet() {
-        return logSet;
+        return this.logSet;
     }
 
     public void setLogSet(LogSet logSet) {
