@@ -19,7 +19,7 @@ public abstract class DefaultCase implements SpinCase {
         }
     }
 
-    private CaseState state;
+    private CaseState state = CaseState.Created;
 
     public CaseState getState() {
         return state;
@@ -30,6 +30,6 @@ public abstract class DefaultCase implements SpinCase {
     }
 
     public boolean isReady(){
-        return this.state == CaseState.Configured;
+        return this.state == CaseState.Resolved;
     }
 }

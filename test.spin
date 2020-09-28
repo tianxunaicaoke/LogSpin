@@ -2,18 +2,38 @@ apply "BasePlugin"
 println "hello LogSpin"
 
 logSet{
-   LogPath = ["C:\\Users\\xtian\\Downloads\\Logs\\Logs\\logcat\\NO2-2020-06-24-19-38-40.txt"]
+   logPath = ["C:\\Users\\xtian\\Downloads\\Logs\\Logs\\logcat\\NO2-2020-06-24-19-38-40.txt",
+   "C:\\Users\\xtian\\Downloads\\Logs\\Logs\\logcat\\NO1-2020-06-24-19-38-03.txt"]
 }
 
 info {
-   Region{
+   region{
      key = "loadAppConfig for region"
      description "current region :"
    }
-   AppVersion {
+   appVersion {
         key = "[app version]"
         description "current version :"
    }
+   time {
+    key  "19:37:25.538 28368 28458"
+    description "test"
+   }
 }
+
+rule {
+  when ""
+  then ""
+}
+
+def hasCard  = rule {
+   when "","",""
+}
+
+def mount = rule{
+   when "",""
+}
+
+when hasCard, mount then ""
 
 

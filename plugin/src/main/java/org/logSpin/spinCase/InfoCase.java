@@ -3,14 +3,23 @@ package org.logSpin.spinCase;
 
 import org.logSpin.LogProcess;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InfoCase extends DefaultCase {
 
     private final HashMap<String, String> list = new HashMap<>();
 
-    private InfoCase(CaseState caseState) {
+    public InfoCase(CaseState caseState) {
         setState(caseState);
+    }
+
+    public HashMap<String, String> getList() {
+        return list;
+    }
+
+    public void merge(InfoCase infoCase) {
+        list.putAll(infoCase.getList());
     }
 
     public void addInfo(String key, String description) {
@@ -19,7 +28,7 @@ public class InfoCase extends DefaultCase {
 
     @Override
     public boolean action(LogProcess logProcess) {
-        logProcess.match(list.keySet().toArray(new String[0]));
+        logProcess.invokeMethod("search",new ArrayList<>(list.keySet()));
         return true;
     }
 

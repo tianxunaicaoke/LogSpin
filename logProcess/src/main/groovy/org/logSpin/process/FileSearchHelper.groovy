@@ -1,16 +1,16 @@
 package org.logSpin.process
 
-import java.lang.reflect.Array
-
 @SuppressWarnings("unused")
 class InfoFileSearchHelper {
-    static def search(SearchBean searchBean) {
-        searchBean.getPath().each { path ->
+    static def search(logPath, object) {
+        def keys = object[0]
+        def fileWriter = new FileWriter("report.txt")
+        logPath.each { path ->
             File file = new File(path)
             file.filterLine {
                 line ->
-                    any(searchBean.getKeys(), line)
-            }.writeTo(new FileWriter("report.txt"))
+                    any(keys, line)
+            }.writeTo(fileWriter)
         }
     }
 

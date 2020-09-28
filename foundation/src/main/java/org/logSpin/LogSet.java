@@ -2,22 +2,23 @@ package org.logSpin;
 
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class LogSet {
 
-    private String[] LogPath = {System.getProperty("user.dir")};
+    private String[] logPath = {System.getProperty("user.dir")};
 
     public String[] getLogPath() {
-        return LogPath;
+        return logPath;
     }
 
     public void setLogPath(String[] logPath) {
-        LogPath = logPath;
+        this.logPath = logPath;
     }
 
     @Override
     public String toString() {
         return "LogSet{" +
-                "LogPath=" + Arrays.toString(LogPath) +
+                "LogPath=" + Arrays.toString(logPath) +
                 '}';
     }
 }
