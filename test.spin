@@ -21,6 +21,8 @@ info {
    }
 }
 
+/*
+
 rule {
   when ""
   then ""
@@ -35,5 +37,6 @@ def mount = rule{
 }
 
 when hasCard, mount then ""
+*/
 
 

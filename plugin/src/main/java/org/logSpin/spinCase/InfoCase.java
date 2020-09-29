@@ -1,34 +1,40 @@
 package org.logSpin.spinCase;
 
 
+import org.logSpin.Info;
 import org.logSpin.LogProcess;
+import org.logSpin.Request;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class InfoCase extends DefaultCase {
 
-    private final HashMap<String, String> list = new HashMap<>();
+    private final List<Info> list = new ArrayList<>();
 
     public InfoCase(CaseState caseState) {
         setState(caseState);
     }
 
-    public HashMap<String, String> getList() {
+    public List<Info> getList() {
         return list;
     }
 
     public void merge(InfoCase infoCase) {
-        list.putAll(infoCase.getList());
+        list.addAll(infoCase.getList());
     }
 
-    public void addInfo(String key, String description) {
-        list.put(key,description);
+    public void addInfo(Info info) {
+        list.add(info);
     }
 
     @Override
     public boolean action(LogProcess logProcess) {
-        logProcess.invokeMethod("search",new ArrayList<>(list.keySet()));
+        List<Request> requests = new ArrayList<>();
+        list.forEach( info ->{
+            requests.add(new Request(info.getKey()));
+        });
+        logProcess.invokeMethod("search",requests);
         return true;
     }
 
