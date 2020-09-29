@@ -1,5 +1,6 @@
 package org.logSpin;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
@@ -8,8 +9,8 @@ public class Rule {
     private String then;
     private boolean meetWhen;
 
-    public void updateRule(String key, boolean value){
-         when.put(key,value);
+    public void updateRule(String key, boolean value) {
+        when.put(key, value);
     }
 
     public HashMap<String, Boolean> getWhen() {
@@ -18,6 +19,15 @@ public class Rule {
 
     public void setWhen(HashMap<String, Boolean> when) {
         this.when = when;
+    }
+
+    public void when(String[] whens) {
+        Arrays.stream(whens)
+                .forEach(s -> when.put(s, false));
+    }
+
+    public void then(String then) {
+        this.then = then;
     }
 
     public String getThen() {
