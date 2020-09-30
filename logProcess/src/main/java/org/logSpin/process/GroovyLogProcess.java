@@ -1,13 +1,13 @@
 package org.logSpin.process;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyObject;
+import groovy.lang.*;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 import org.logSpin.core.DefaultLogProcess;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class GroovyLogProcess extends DefaultLogProcess {
@@ -31,8 +31,13 @@ public class GroovyLogProcess extends DefaultLogProcess {
     private Object invoke(String name, Object... params) {
         Binding binding = new Binding();
         try {
-            GroovyObject groovyObject = (GroovyObject) groovyScriptEngine.run("FileSearchHelper.groovy", binding);
-            groovyObject.invokeMethod(name, params);
+            List<Object> helper = (List<Object>) groovyScriptEngine.run("FileHelper.groovy", binding);
+            for (Object object : helper) {
+                GroovyObject groovyObject = (GroovyObject) object;
+                if (tryInvokeMethod(groovyObject, name, params) != null) {
+                    break;
+                }
+            }
         } catch (ResourceException | ScriptException e) {
             e.printStackTrace();
         }
