@@ -21,22 +21,19 @@ info {
    }
 }
 
-/*
-
 rule {
-  when ""
-  then ""
+  when "this is predictive card" then "PC"
 }
 
-def hasCard  = rule {
+def hasCard = {
    when "","",""
 }
 
-def mount = rule{
+def mount = {
    when "",""
 }
 
-when hasCard, mount then ""
-*/
+when hasCard, mount then "123"
+
 
 

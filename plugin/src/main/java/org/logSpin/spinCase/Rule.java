@@ -1,13 +1,23 @@
-package org.logSpin;
+package org.logSpin.spinCase;
+
+import groovy.lang.GroovyObjectSupport;
+import org.logSpin.DynamicObject;
+import org.logSpin.core.AbstractDynamicObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
-public class Rule {
+public class Rule extends GroovyObjectSupport{
     private HashMap<String, Boolean> when = new HashMap<>();
     private String then;
     private boolean meetWhen;
+        private DynamicObject dynamicObject = new AbstractDynamicObject() {
+        @Override
+        public Object tryInvokeMethod(String name, Object[] params) {
+            return super.tryInvokeMethod(name, params);
+        }
+    };
 
     public void updateRule(String key, boolean value) {
         when.put(key, value);
@@ -21,9 +31,10 @@ public class Rule {
         this.when = when;
     }
 
-    public void when(String[] whens) {
+    public Rule when(String[] whens) {
         Arrays.stream(whens)
                 .forEach(s -> when.put(s, false));
+        return this;
     }
 
     public void then(String then) {
@@ -44,5 +55,10 @@ public class Rule {
 
     public void setMeetWhen(boolean meetWhen) {
         this.meetWhen = meetWhen;
+    }
+
+    @Override
+    public Object invokeMethod(String name, Object args) {
+        return dynamicObject.tryInvokeMethod(this, name, (Object[]) args);
     }
 }

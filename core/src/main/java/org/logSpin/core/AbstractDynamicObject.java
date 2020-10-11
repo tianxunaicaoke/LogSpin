@@ -16,11 +16,11 @@ public abstract class AbstractDynamicObject implements DynamicObject {
 
     @Override
     public Object tryInvokeMethod(Object clazz, String name, Object[] params) {
-        MetaClass metaClass = getMetaClass(clazz);
+            MetaClass metaClass = getMetaClass(clazz);
         MetaMethod metaMethod = lookupMethod(metaClass, name, convert(params));
         if (metaMethod != null) {
-            metaMethod.doMethodInvoke(clazz, params);
-            return metaClass;
+            Object result = metaMethod.doMethodInvoke(clazz, params);
+            return result == null ? true : result;
         }
         return null;
     }
