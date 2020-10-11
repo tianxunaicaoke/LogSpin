@@ -5,6 +5,7 @@ import org.logSpin.*;
 
 import org.logSpin.core.ConfigureUtil;
 import org.logSpin.spinCase.InfoCase;
+import org.logSpin.spinCase.Rule;
 import org.logSpin.spinCase.RuleCase;
 import org.logSpin.util.SpinLogLog;
 
@@ -56,8 +57,8 @@ public class BasePlugin<T extends Spin> implements Plugin<T> {
                 .build();
     }
 
-    public void when() {
-
+    public Rule when(Closure<?>[] rules) {
+        return new Rule();
     }
 
     public void logSet(Closure<?> closure) {

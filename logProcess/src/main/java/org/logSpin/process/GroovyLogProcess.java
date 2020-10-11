@@ -28,6 +28,7 @@ public class GroovyLogProcess extends DefaultLogProcess {
         return invoke(name, getLogSet().getLogPath(), params);
     }
 
+    @SuppressWarnings("unchecked")
     private Object invoke(String name, Object... params) {
         Binding binding = new Binding();
         try {

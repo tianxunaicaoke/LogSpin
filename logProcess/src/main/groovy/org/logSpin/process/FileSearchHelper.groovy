@@ -11,10 +11,10 @@ class FileSearchHelper {
         def fileWriter = new FileWriter("report.txt")
         try {
             logPath.each { path ->
-                File file = new File(path)
+                File file = new File(path as String)
                 file.eachLine {
                     line ->
-                        String value = checkOnce(keys, line)
+                        String value = checkOnce(keys as ArrayList<Request>, line)
                         if (value != null) {
                             fileWriter.write(value)
                             fileWriter.append("\n")
