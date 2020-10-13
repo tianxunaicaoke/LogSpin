@@ -2,8 +2,8 @@ apply "BasePlugin"
 println "hello LogSpin"
 
 logSet{
-   logPath = ["C:\\Users\\xtian\\Downloads\\Logs\\Logs\\logcat\\NO2-2020-06-24-19-38-40.txt",
-   "C:\\Users\\xtian\\Downloads\\Logs\\Logs\\logcat\\NO1-2020-06-24-19-38-03.txt"]
+   logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\main.log",
+   "C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
 }
 
 info {
@@ -23,14 +23,15 @@ info {
 
 rule {
   when "this is predictive card" then "PC"
+  when "is a car","is bench","nav on" then "is telenav"
 }
 
 def hasCard = {
-   when "","",""
+   when "is na region","has destination"
 }
 
 def mount = {
-   when "",""
+   when "SDCard has in","is legal"
 }
 
 when hasCard, mount then "123"
