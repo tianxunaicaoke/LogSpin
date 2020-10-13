@@ -1,10 +1,28 @@
 package org.logSpin.spinCase;
 
 import org.logSpin.LogProcess;
+import org.logSpin.Rule;
 
-public class RuleCase extends DefaultCase{
+import java.util.ArrayList;
+import java.util.List;
 
-    public RuleCase(CaseState state){
+public class RuleCase extends DefaultCase {
+
+    private List<Rule> rules = new ArrayList<>();
+
+    public List<Rule> getRules() {
+        return rules;
+    }
+
+    public void addRules(List<Rule> rules) {
+        this.rules.addAll(rules);
+    }
+
+    public void addRule(Rule rule) {
+        this.rules.add(rule);
+    }
+
+    public RuleCase(CaseState state) {
         setState(state);
     }
 
