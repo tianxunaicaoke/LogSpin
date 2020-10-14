@@ -1,1 +1,6 @@
 /.idea/ .gradle/ .build/
+/core/build/
+/foundation/build/
+/logProcess/build/
+/plugin/build/
+/report/build/
