@@ -1,5 +1,5 @@
 package org.logSpin;
 
 public interface SpinCase {
-    boolean action(LogProcess logProcess);
+    void action(LogProcess logProcess);
 }

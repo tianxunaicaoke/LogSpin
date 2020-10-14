@@ -3,6 +3,15 @@ package org.logSpin;
 public class Response {
     private String key;
     private String value;
+    private boolean exist;
+
+    public boolean isExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
 
     public String getKey() {
         return key;

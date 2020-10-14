@@ -5,15 +5,6 @@ public class Info {
     private String key;
     private String description;
     private String value;
-    private boolean valued;
-
-    public boolean isValued() {
-        return valued;
-    }
-
-    public void setValued(boolean valued) {
-        this.valued = valued;
-    }
 
     public String getValue() {
         return value;

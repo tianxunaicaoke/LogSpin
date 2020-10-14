@@ -9,11 +9,11 @@ logSet{
 info {
    region{
      key = "loadAppConfig for region"
-     description "current region :"
+     description "current region"
    }
    appVersion {
         key = "[app version]"
-        description "current version :"
+        description "current version"
    }
    time {
     key  "19:37:25.538 28368 28458"

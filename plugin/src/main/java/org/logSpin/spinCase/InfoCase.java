@@ -1,12 +1,11 @@
 package org.logSpin.spinCase;
 
-
-import org.logSpin.Info;
-import org.logSpin.LogProcess;
-import org.logSpin.Request;
+import javafx.util.Pair;
+import org.logSpin.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InfoCase extends DefaultCase {
 
@@ -29,13 +28,30 @@ public class InfoCase extends DefaultCase {
     }
 
     @Override
-    public boolean action(LogProcess logProcess) {
+    public void action(LogProcess logProcess) {
+        searchAndUpdateInfo(logProcess);
+        writeToReport(logProcess);
+    }
+
+    private void searchAndUpdateInfo(LogProcess logProcess) {
         List<Request> requests = new ArrayList<>();
-        list.forEach( info ->{
-            requests.add(new Request(info.getKey()));
+        list.forEach(info -> requests.add(new Request(info.getKey())));
+        logProcess.invokeMethod("search", requests, (Observable<Response>) response -> {
+            list.stream()
+                    .filter(info -> Objects.equals(info.getKey(), response.getKey()))
+                    .findAny()
+                    .ifPresent(info -> info.setValue(response.getValue()));
         });
-        logProcess.invokeMethod("search",requests);
-        return true;
+    }
+
+    private void writeToReport(LogProcess logProcess) {
+        List<Pair<String, String>> infoList = new ArrayList<>();
+        list.forEach(info -> {
+                    if (info.getValue() != null)
+                        infoList.add(new Pair<>(info.getDescription(), info.getValue()));
+                }
+        );
+        logProcess.invokeMethod("writeInfo", infoList);
     }
 
     public static class Builder {

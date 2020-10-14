@@ -1,14 +1,13 @@
 package org.logSpin.spinCase;
 
-import org.logSpin.LogProcess;
-import org.logSpin.Rule;
+import org.logSpin.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RuleCase extends DefaultCase {
 
-    private List<Rule> rules = new ArrayList<>();
+    private final List<Rule> rules = new ArrayList<>();
 
     public List<Rule> getRules() {
         return rules;
@@ -27,8 +26,36 @@ public class RuleCase extends DefaultCase {
     }
 
     @Override
-    public boolean action(LogProcess logProcess) {
-        return false;
+    public void action(LogProcess logProcess) {
+        searchAndUpdateRule(logProcess);
+        writeToReport(logProcess);
+    }
+
+    private void searchAndUpdateRule(LogProcess logProcess) {
+        List<Request> requests = new ArrayList<>();
+        rules.forEach(
+                rule -> rule.getWhen()
+                        .keySet()
+                        .forEach(
+                                it -> requests.add(new Request(it)))
+        );
+        logProcess.invokeMethod("findExist", requests, (Observable<Response>) response -> {
+            if (response.isExist()) {
+                rules.forEach(rule ->
+                        rule.getWhen().put(response.getKey(), true)
+                );
+            }
+        });
+    }
+
+    private void writeToReport(LogProcess logProcess) {
+        List<String> stringList = new ArrayList<>();
+        rules.forEach(
+                rule ->
+                    stringList.add(rule.getThen()+"   "+(rule.isMeetWhen()?"[ok]":"[failure]"))
+
+        );
+        logProcess.invokeMethod("writeRule", stringList);
     }
 
     public static class Builder {
