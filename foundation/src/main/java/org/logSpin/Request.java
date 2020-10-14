@@ -2,14 +2,14 @@ package org.logSpin;
 
 public class Request {
     private String key;
-    private boolean valued;
+    private boolean alreadyFound;
 
-    public boolean isValued() {
-        return valued;
+    public boolean isAlreadyFound() {
+        return alreadyFound;
     }
 
-    public void setValued(boolean valued) {
-        this.valued = valued;
+    public void setAlreadyFound(boolean alreadyFound) {
+        this.alreadyFound = alreadyFound;
     }
 
     public String getKey() {

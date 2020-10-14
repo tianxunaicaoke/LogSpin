@@ -6,7 +6,6 @@ import java.util.HashMap;
 public class Rule {
     private HashMap<String, Boolean> when = new HashMap<>();
     private String then;
-    private boolean meetWhen;
 
     public void updateRule(String key, boolean value) {
         when.put(key, value);
@@ -37,11 +36,7 @@ public class Rule {
     }
 
     public boolean isMeetWhen() {
-        return meetWhen;
-    }
-
-    public void setMeetWhen(boolean meetWhen) {
-        this.meetWhen = meetWhen;
+        return when.values().stream().allMatch(it-> it);
     }
 
     public boolean isLegal() {
