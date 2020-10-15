@@ -1,10 +1,12 @@
 package org.logSpin;
 
-import java.util.List;
+import java.util.HashMap;
 
 public interface PluginContainer<T> {
 
-    void addPlugin(T plugin) ;
+    void addPlugin(String pluginId, T plugin);
 
-    List<T> getPlugins();
+    boolean contain(String pluginId);
+
+    HashMap<String, T> getPlugins();
 }

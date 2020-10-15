@@ -1,10 +1,13 @@
 package org.logSpin.plugin;
 
+import org.logSpin.Plugin;
+import org.logSpin.Spin;
+
 public class PluginId {
     private final String id;
-    private final Class<?> pluginClass;
+    private final Class<? extends Plugin<Spin>> pluginClass;
 
-    public PluginId(String id, Class<?> pluginClass) {
+    public PluginId(String id, Class<? extends Plugin<Spin>> pluginClass) {
         this.id = id;
         this.pluginClass = pluginClass;
     }
@@ -13,7 +16,7 @@ public class PluginId {
         return id;
     }
 
-    public Class<?> getPluginClass() {
+    public Class<? extends Plugin<Spin>> getPluginClass() {
         return pluginClass;
     }
 }
