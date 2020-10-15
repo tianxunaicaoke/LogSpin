@@ -1,6 +1,6 @@
 package org.logSpin;
 
 public interface Plugin<T> {
-    void resolveCase(T spin);
-    void apply(T spin);
+    void resolveCase(T t);
+    void apply(T t);
 }

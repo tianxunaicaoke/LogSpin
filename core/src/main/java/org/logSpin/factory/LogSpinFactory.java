@@ -25,8 +25,8 @@ public class LogSpinFactory {
                 scriptDelegate);
     }
 
-    public PluginContainer<Plugin<?>> providePluginContainer(){
-        return new DefaultPluginContainer<>();
+    public PluginContainer<Plugin<Spin>> providePluginContainer(){
+        return new DefaultPluginContainer();
     }
 
     public ScriptDelegate provideScriptDelegate() {

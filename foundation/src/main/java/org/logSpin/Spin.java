@@ -10,7 +10,7 @@ public interface Spin {
     void configure(String[] arg);
     void analyse();
     PluginContainer<Plugin<Spin>> getPluginContainer();
-    PluginManager getPluginManager();
+    PluginManager<Spin> getPluginManager();
     LogProcess getLogProcess();
     List<SpinCase> getResolvedCases();
     List<SpinCase> getConfiguredCase();

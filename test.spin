@@ -1,5 +1,4 @@
-apply "BasePlugin"
-println "hello LogSpin"
+apply "AndroidPlugin"
 
 logSet{
    logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\main.log",
@@ -15,14 +14,14 @@ info {
         key = "[app version]"
         description "current version"
    }
-   time {
-    key  "19:37:25.538 28368 28458"
-    description "test"
+   clusterView {
+    key  "viewId="
+    description "cluster view"
    }
 }
 
 rule {
-  when "this is predictive card" then "PC"
+  when "pcLabel:  Work" then "has card"
   when "is a car","is bench","nav on" then "is telenav"
 }
 

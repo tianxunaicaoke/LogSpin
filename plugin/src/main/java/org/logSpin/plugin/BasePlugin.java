@@ -17,7 +17,7 @@ import static org.logSpin.spinCase.DefaultCase.CaseState.Configured;
 import static org.logSpin.spinCase.DefaultCase.CaseState.Resolved;
 
 @SuppressWarnings("unused")
-public class BasePlugin<T extends Spin> implements Plugin<T> {
+public class BasePlugin implements Plugin<Spin> {
     private FlowContainer flowContainer;
     private InfoContainer infoContainer;
     private RuleContainer ruleContainer;
@@ -88,7 +88,7 @@ public class BasePlugin<T extends Spin> implements Plugin<T> {
     }
 
     @Override
-    public void resolveCase(T spin) {
+    public void resolveCase(Spin spin) {
         resolveInfoCase(spin.getConfiguredCase());
         resolveRuleCase(spin.getConfiguredCase());
     }

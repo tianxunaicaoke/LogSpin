@@ -3,12 +3,13 @@ package org.logSpin.plugin;
 import org.logSpin.Plugin;
 import org.logSpin.PluginContainer;
 import org.logSpin.PluginManager;
+import org.logSpin.Spin;
 
-public class DefaultPluginManager implements PluginManager {
+public class DefaultPluginManager implements PluginManager<Spin> {
     private final PluginRegister pluginRegister = new PluginRegister();
-    private final PluginContainer<Plugin<?>> pluginContainer;
+    private final PluginContainer<Plugin<Spin>> pluginContainer;
 
-    public DefaultPluginManager(PluginContainer<Plugin<?>> pluginContainer ){
+    public DefaultPluginManager(PluginContainer<Plugin<Spin>> pluginContainer) {
         this.pluginContainer = pluginContainer;
     }
 
@@ -17,9 +18,11 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
-    public Plugin<?> getPluginById(String Id) {
+    public Plugin<Spin> getPluginById(String id) {
         try {
-            return (Plugin<?>) pluginRegister.getPlugin(Id).getPluginClass().newInstance();
+            return contain(id)
+                    ? pluginContainer.getPlugins().get(id)
+                    : pluginRegister.getPlugin(id).getPluginClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -27,9 +30,12 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
-    public PluginContainer<? extends Plugin<?>> getPluginContainer() {
+    public PluginContainer<Plugin<Spin>> getPluginContainer() {
         return pluginContainer;
     }
 
-
+    @Override
+    public boolean contain(String id) {
+        return pluginContainer.contain(id);
+    }
 }

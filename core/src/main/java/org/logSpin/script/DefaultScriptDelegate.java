@@ -13,16 +13,16 @@ public class DefaultScriptDelegate extends AbstractDynamicObject implements Scri
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void apply(String pluginId) {
-        Plugin<Spin> plugin = (Plugin<Spin>) spin.getPluginManager().getPluginById(pluginId);
+        Plugin<Spin> plugin = spin.getPluginManager().getPluginById(pluginId);
         plugin.apply(spin);
-        spin.getPluginContainer().addPlugin(plugin);
+        spin.getPluginContainer()
+                .addPlugin(pluginId, plugin);
     }
 
     @Override
     public Object invokeMethod(String name, Object[] args) {
-        for (Plugin<?> plugin : spin.getPluginContainer().getPlugins()) {
+        for (Plugin<?> plugin : spin.getPluginContainer().getPlugins().values()) {
             Object result = tryInvokeMethod(plugin, name, args);
             if (result != null) {
                 return result;

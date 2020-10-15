@@ -2,18 +2,23 @@ package org.logSpin.plugin;
 
 import org.logSpin.Plugin;
 import org.logSpin.PluginContainer;
+import org.logSpin.Spin;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-public class DefaultPluginContainer<T extends Plugin<?>> implements PluginContainer<T> {
-    private final List<T> plugins = new ArrayList<>();
+public class DefaultPluginContainer implements PluginContainer<Plugin<Spin>> {
+    private final HashMap<String, Plugin<Spin>> plugins = new HashMap<>();
 
-    public void addPlugin(T plugin) {
-        plugins.add(plugin);
+    public void addPlugin(String pluginId, Plugin<Spin> plugin) {
+        plugins.put(pluginId, plugin);
     }
 
-    public List<T> getPlugins() {
+    @Override
+    public boolean contain(String pluginId) {
+        return plugins.get(pluginId) != null;
+    }
+
+    public HashMap<String, Plugin<Spin>> getPlugins() {
         return plugins;
     }
 }

@@ -10,12 +10,12 @@ import java.util.List;
 public class LogSpin implements Spin {
 
     private final ScriptRunner scriptRunner;
-    private final PluginManager pluginManager;
+    private final PluginManager<Spin> pluginManager;
     private final List<SpinCase> resolvedCase;
     private final List<SpinCase> configuredCase;
     private final LogProcess logProcess;
 
-    public LogSpin(PluginContainer<Plugin<?>> pluginContainer, ScriptRunner scriptRunner, LogProcess logProcess) {
+    public LogSpin(PluginContainer<Plugin<Spin>> pluginContainer, ScriptRunner scriptRunner, LogProcess logProcess) {
         this.scriptRunner = scriptRunner;
         this.pluginManager = new DefaultPluginManager(pluginContainer);
         this.logProcess = logProcess;
@@ -31,11 +31,14 @@ public class LogSpin implements Spin {
 
 
     private void resolveCase() {
-        getPluginContainer().getPlugins().forEach(
-                plugin ->
-                        plugin.resolveCase(this)
+        getPluginContainer()
+                .getPlugins()
+                .values()
+                .forEach(
+                        plugin ->
+                                plugin.resolveCase(this)
 
-        );
+                );
         analyse();
     }
 
@@ -47,13 +50,12 @@ public class LogSpin implements Spin {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public PluginContainer<Plugin<Spin>> getPluginContainer() {
-        return (PluginContainer<Plugin<Spin>>) pluginManager.getPluginContainer();
+        return pluginManager.getPluginContainer();
     }
 
     @Override
-    public PluginManager getPluginManager() {
+    public PluginManager<Spin> getPluginManager() {
         return pluginManager;
     }
 
