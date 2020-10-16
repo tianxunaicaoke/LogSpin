@@ -14,6 +14,7 @@ public class LogSpin implements Spin {
     private final List<SpinCase> resolvedCase;
     private final List<SpinCase> configuredCase;
     private final LogProcess logProcess;
+    private final LogVariantManager logVariantManager;
 
     public LogSpin(PluginContainer<Plugin<Spin>> pluginContainer, ScriptRunner scriptRunner, LogProcess logProcess) {
         this.scriptRunner = scriptRunner;
@@ -21,6 +22,7 @@ public class LogSpin implements Spin {
         this.logProcess = logProcess;
         this.resolvedCase = new ArrayList<>();
         this.configuredCase = new ArrayList<>();
+        this.logVariantManager = new DefaultLogSpinManager();
     }
 
     @Override
@@ -29,7 +31,6 @@ public class LogSpin implements Spin {
         resolveCase();
     }
 
-
     private void resolveCase() {
         getPluginContainer()
                 .getPlugins()
@@ -37,9 +38,16 @@ public class LogSpin implements Spin {
                 .forEach(
                         plugin ->
                                 plugin.resolveCase(this)
-
                 );
+        applyLogScope();
         analyse();
+    }
+
+    private void applyLogScope() {
+        if (logVariantManager.getVariant().isEmpty()) {
+            resolvedCase.forEach(spinCase ->
+                    spinCase.addVariants(logVariantManager.getVariant()));
+        }
     }
 
     @Override
@@ -72,5 +80,10 @@ public class LogSpin implements Spin {
     @Override
     public List<SpinCase> getConfiguredCase() {
         return configuredCase;
+    }
+
+    @Override
+    public LogVariantManager getLogVariantManager() {
+        return logVariantManager;
     }
 }

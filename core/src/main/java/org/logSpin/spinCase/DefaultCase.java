@@ -1,7 +1,10 @@
 package org.logSpin.spinCase;
 
-import org.logSpin.LogProcess;
+import org.logSpin.Variant;
 import org.logSpin.SpinCase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public abstract class DefaultCase implements SpinCase {
@@ -20,6 +23,17 @@ public abstract class DefaultCase implements SpinCase {
     }
 
     private CaseState state = CaseState.Created;
+
+    private final List<Variant> variants = new ArrayList<>();
+
+    @Override
+    public void addVariants(List<Variant> variants) {
+        variants.addAll(variants);
+    }
+
+    public List<Variant> getVariants() {
+        return variants;
+    }
 
     public CaseState getState() {
         return state;
