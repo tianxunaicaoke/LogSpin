@@ -14,4 +14,5 @@ public interface Spin {
     LogProcess getLogProcess();
     List<SpinCase> getResolvedCases();
     List<SpinCase> getConfiguredCase();
+    LogVariantManager getLogVariantManager();
 }

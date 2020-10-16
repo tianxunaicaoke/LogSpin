@@ -5,6 +5,10 @@ logSet{
    "C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
 }
 
+android{
+   process "com.telenav.app.denali.na","com.telenav.app.denali.na:cluster"
+}
+
 info {
    region{
      key = "loadAppConfig for region"

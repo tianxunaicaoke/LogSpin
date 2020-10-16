@@ -1,6 +1,5 @@
 package org.logSpin.plugin;
 
-import org.logSpin.AndroidPlugin;
 import org.logSpin.Plugin;
 import org.logSpin.Spin;
 
