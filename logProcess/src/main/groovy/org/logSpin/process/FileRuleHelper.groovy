@@ -9,7 +9,7 @@ class FileRuleHelper {
     static def findExist(logPath, object) {
         def keys = object[0] as List<Request>
         def observable = object[1] as Observable<Response>
-        FileUtil.forEachLineOfFile(keys, observable, logPath) {
+        FileUtil.forEachLineOfFile(logPath, keys, FileUtil.&checkOnce, observable) {
             line, r ->
                 def response = null
                 if (r) {

@@ -42,4 +42,8 @@ public class Rule {
     public boolean isLegal() {
         return !when.isEmpty() && then != null;
     }
+
+    public void resetRule(){
+        when.values().forEach(it -> it = false);
+    }
 }

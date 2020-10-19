@@ -8,6 +8,7 @@ import java.util.List;
 public class RuleCase extends DefaultCase {
 
     private final List<Rule> rules = new ArrayList<>();
+    private final List<Variant> variants = new ArrayList<>();
 
     public List<Rule> getRules() {
         return rules;
@@ -27,17 +28,27 @@ public class RuleCase extends DefaultCase {
 
     @Override
     public void action(LogProcess logProcess) {
-        searchAndUpdateRule(logProcess);
-        writeToReport(logProcess);
+        variants.forEach(
+                variant -> {
+                    rules.forEach(Rule::resetRule);
+                    searchAndUpdateRule(variant, logProcess);
+                    writeToReport(variant, logProcess);
+                }
+        );
     }
 
-    private void searchAndUpdateRule(LogProcess logProcess) {
+    @Override
+    public void applyVariant(List<Variant> variants) {
+        this.variants.addAll(variants);
+    }
+
+    private void searchAndUpdateRule(Variant variant, LogProcess logProcess) {
         List<Request> requests = new ArrayList<>();
         rules.forEach(
                 rule -> rule.getWhen()
                         .keySet()
                         .forEach(
-                                it -> requests.add(new Request(it)))
+                                it -> requests.add(new Request(it, variant.getKey())))
         );
         logProcess.invokeMethod("findExist", requests, (Observable<Response>) response -> {
             if (response.isExist()) {
@@ -48,11 +59,12 @@ public class RuleCase extends DefaultCase {
         });
     }
 
-    private void writeToReport(LogProcess logProcess) {
+    private void writeToReport(Variant variant, LogProcess logProcess) {
         List<String> stringList = new ArrayList<>();
+        stringList.add("==========>  process:"+variant.getName());
         rules.forEach(
                 rule ->
-                    stringList.add(rule.getThen()+"   "+(rule.isMeetWhen()?"[ok]":"[failure]"))
+                        stringList.add(rule.getThen() + "   " + (rule.isMeetWhen() ? "[ok]" : "[unknown]"))
 
         );
         logProcess.invokeMethod("writeRule", stringList);

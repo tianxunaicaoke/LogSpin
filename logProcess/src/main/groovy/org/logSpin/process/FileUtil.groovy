@@ -1,6 +1,5 @@
 package org.logSpin.process
 
-import org.logSpin.Request
 import org.logSpin.Response
 
 class FileUtil {
@@ -9,11 +8,13 @@ class FileUtil {
      * To check if the line contain one of the keys, Then set key to already found.
      * @param keys
      * @param line
+     * @param action
      * @return Response
      */
     static Response checkOnce(keys, line, action) {
-        Request r = keys.find {
-            if (!it.isAlreadyFound() && line.contains(it.getKey())) {
+        def r = keys.find {
+            if (!it.isAlreadyFound() && line.contains(it.getKey())
+                    && (it.getVariant() == null || it.getVariant() != null && line.contains(it.getVariant()))) {
                 it.setAlreadyFound(true)
                 return true
             }
@@ -22,20 +23,35 @@ class FileUtil {
     }
 
     /**
-     * Check the file under the logPath, find the line match the request, then invoke action, and notify to invoker.
+     * To check if the line contain one of the keys.
      * @param keys
-     * @param observable
+     * @param line
+     * @param action
+     * @return Response
+     */
+    static Response checkAllByRegex(keys, line, action) {
+        def r = keys.find {
+            line ==~ it.key
+        }
+        action(line, r)
+    }
+
+    /**
+     * Check the file under the logPath, find the line match the request, then invoke action, and notify to invoker.
      * @param logPath
+     * @param keys
+     * @param check
+     * @param observable
      * @param action
      * @return
      */
-    static def forEachLineOfFile(keys, observable, logPath, action) {
+    static def forEachLineOfFile(logPath, keys, check, observable, action) {
         logPath.each {
             path ->
                 File file = new File(path as String)
                 file.eachLine {
                     line ->
-                        def value = checkOnce(keys, line, action)
+                        def value = check(keys, line, action)
                         if (value) {
                             observable.next(value)
                         }

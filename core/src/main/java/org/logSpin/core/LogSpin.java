@@ -39,15 +39,8 @@ public class LogSpin implements Spin {
                         plugin ->
                                 plugin.resolveCase(this)
                 );
-        applyLogScope();
+        logVariantManager.applyVariant(resolvedCase);
         analyse();
-    }
-
-    private void applyLogScope() {
-        if (logVariantManager.getVariant().isEmpty()) {
-            resolvedCase.forEach(spinCase ->
-                    spinCase.addVariants(logVariantManager.getVariant()));
-        }
     }
 
     @Override

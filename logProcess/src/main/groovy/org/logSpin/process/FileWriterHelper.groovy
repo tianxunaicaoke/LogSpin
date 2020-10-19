@@ -5,24 +5,27 @@ class FileWriterHelper {
     def text_carve = "======>"
     def text_logSpin = "----------LoginSpin----------"
     def text_info = " info"
+    def text_procss = " process"
     def text_analyze = " analyze"
-    FileWriterHelper(){
+
+    FileWriterHelper() {
         clearFile()
     }
-    static def clearFile(){
+
+    static def clearFile() {
         def fileWriter = new FileWriter("report.txt")
         fileWriter.write("")
         fileWriter.flush()
         fileWriter.close()
     }
 
-    static def writeln( fileWriter, value) {
+    static def writeln(fileWriter, value) {
         fileWriter.write(value)
         fileWriter.append("\n")
         fileWriter.flush()
     }
 
-    static def write( fileWriter, value) {
+    static def write(fileWriter, value) {
         fileWriter.write(value)
         fileWriter.flush()
     }
@@ -33,7 +36,7 @@ class FileWriterHelper {
         write(fileWriter, text_carve)
         writeln(fileWriter, text_info)
         infos.each {
-            it -> writeln(fileWriter,it.toString())
+            it -> writeln(fileWriter, it.toString())
         }
         fileWriter.close()
     }
@@ -41,7 +44,16 @@ class FileWriterHelper {
     def writeRule(Object rules) {
         def fileWriter = new FileWriter("report.txt", true)
         write(fileWriter, text_carve)
-        writeln(fileWriter,text_analyze )
+        writeln(fileWriter, text_analyze)
+        rules.each {
+            it -> writeln(fileWriter, it)
+        }
+    }
+
+    def writeProcess(Object rules) {
+        def fileWriter = new FileWriter("report.txt", true)
+        write(fileWriter, text_carve)
+        writeln(fileWriter, text_procss)
         rules.each {
             it -> writeln(fileWriter, it)
         }

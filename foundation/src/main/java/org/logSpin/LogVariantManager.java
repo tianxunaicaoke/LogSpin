@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface LogVariantManager {
    void addVariant(List<Variant> variants);
-   List<Variant> getVariant();
+   void applyVariant(List<SpinCase> resolvedCase);
 }

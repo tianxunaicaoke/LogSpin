@@ -28,6 +28,7 @@ public class AndroidPlugin implements Plugin<Spin> {
         androidExtension = new AndroidExtension();
     }
 
+    @SuppressWarnings("unused")
     public void android(Closure<?> closure){
         ConfigureUtil.configureByObject(closure, androidExtension);
     }
