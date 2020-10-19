@@ -33,15 +33,20 @@ public class InfoCase extends DefaultCase {
         writeToReport(logProcess);
     }
 
+    @Override
+    public void applyVariant(List<Variant> variants) {
+
+    }
+
     private void searchAndUpdateInfo(LogProcess logProcess) {
         List<Request> requests = new ArrayList<>();
         list.forEach(info -> requests.add(new Request(info.getKey())));
-        logProcess.invokeMethod("search", requests, (Observable<Response>) response -> {
+        logProcess.invokeMethod("search", requests, (Observable<Response>) response ->
             list.stream()
                     .filter(info -> Objects.equals(info.getKey(), response.getKey()))
                     .findAny()
-                    .ifPresent(info -> info.setValue(response.getValue()));
-        });
+                    .ifPresent(info -> info.setValue(response.getValue()))
+        );
     }
 
     private void writeToReport(LogProcess logProcess) {

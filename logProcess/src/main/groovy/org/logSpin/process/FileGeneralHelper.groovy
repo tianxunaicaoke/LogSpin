@@ -5,20 +5,19 @@ import org.logSpin.Request
 import org.logSpin.Response
 
 @SuppressWarnings("unused")
-class FileInfoHelper {
-    static def search(logPath, object) {
+class FileGeneralHelper {
+    static def findLine(logPath, object) {
         def keys = object[0] as List<Request>
         def observable = object[1] as Observable<Response>
-        FileUtil.forEachLineOfFile(logPath, keys, FileUtil.&checkOnce, observable) {
+        FileUtil.forEachLineOfFile(logPath, keys, FileUtil.&checkAllByRegex, observable) {
             line, r ->
                 def response = null
                 if (r) {
                     response = new Response()
                     response.key = r.getKey()
-                    response.value = FileUtil.getValue(line, r.getKey())
+                    response.value = line
                 }
                 return response
         }
     }
 }
-

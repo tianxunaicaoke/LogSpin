@@ -1,6 +1,8 @@
 package org.logSpin;
 
 public class Request {
+
+    private String variant;
     private String key;
     private boolean alreadyFound;
 
@@ -20,7 +22,19 @@ public class Request {
         this.key = key;
     }
 
+    public Request(String key, String variant) {
+        this.key = key;
+    }
+
     public void key(String key) {
         this.key = key;
+    }
+
+    public String getVariant() {
+        return variant;
+    }
+
+    public void setVariant(String variant) {
+        this.variant = variant;
     }
 }
