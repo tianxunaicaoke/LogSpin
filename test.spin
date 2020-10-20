@@ -25,8 +25,8 @@ info {
 }
 
 rule {
-  when "pcLabel:  Work" then "has card"
-  when "is a car","is bench","nav on" then "is telenav"
+  when "pcLabel:  Work" then "has Work card"
+  when "startRouteCalculate","notifyCardEstimationTimeCalculated" then "has calculate route"
 }
 
 def hasCard = {

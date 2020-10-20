@@ -24,6 +24,7 @@ public class Request {
 
     public Request(String key, String variant) {
         this.key = key;
+        this.variant = variant;
     }
 
     public void key(String key) {
