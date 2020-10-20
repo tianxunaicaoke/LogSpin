@@ -12,12 +12,29 @@ repositories {
 }
 
 dependencies {
-   // compile gradleApi()
+    // compile gradleApi()
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation(project(":core"))
-    implementation(project(":foundation"))
-    implementation(project(":plugin"))
-    implementation(project(":logProcess"))
+    compile(project(":core"))
+    compile(project(":foundation"))
+    compile(project(":plugin"))
+    compile(project(":logProcess"))
 }
+
+jar {
+    String module = ''
+    configurations.runtime.each {module = module + " lib\\"+it.name}
+    manifest {
+        attributes 'Main-Class': 'org.logSpin.launch.LogSpinLauncher'
+        attributes 'Class-Path': module
+    }
+}
+
+
+task copyJar(type:Copy){
+    from configurations.runtime
+    into ('build/libs/lib')
+}
+
+

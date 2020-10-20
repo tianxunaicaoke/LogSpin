@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.LogSpin'
+group 'org.example'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -11,6 +11,6 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    implementation(project(":core"))
     implementation(project(":foundation"))
 }

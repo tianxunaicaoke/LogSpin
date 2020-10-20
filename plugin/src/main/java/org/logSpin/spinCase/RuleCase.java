@@ -61,13 +61,15 @@ public class RuleCase extends DefaultCase {
 
     private void writeToReport(Variant variant, LogProcess logProcess) {
         List<String> stringList = new ArrayList<>();
-        stringList.add("==========>  process:"+variant.getName());
-        rules.forEach(
-                rule ->
-                        stringList.add(rule.getThen() + "   " + (rule.isMeetWhen() ? "[ok]" : "[unknown]"))
+        if (rules.stream().anyMatch(Rule::isMeetWhen)) {
+            stringList.add("==========>  process:" + variant.getKey());
+            rules.forEach(
+                    rule ->
+                            stringList.add(rule.getThen() + "   " + (rule.isMeetWhen() ? "[ok]" : "[unknown]"))
 
-        );
-        logProcess.invokeMethod("writeRule", stringList);
+            );
+            logProcess.invokeMethod("writeRule", stringList);
+        }
     }
 
     public static class Builder {

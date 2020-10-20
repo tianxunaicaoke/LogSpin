@@ -1,6 +1,5 @@
 package org.logSpin.spinCase;
 
-import javafx.util.Pair;
 import org.logSpin.*;
 
 import java.util.ArrayList;
@@ -50,10 +49,10 @@ public class InfoCase extends DefaultCase {
     }
 
     private void writeToReport(LogProcess logProcess) {
-        List<Pair<String, String>> infoList = new ArrayList<>();
+        List<String> infoList = new ArrayList<>();
         list.forEach(info -> {
                     if (info.getValue() != null)
-                        infoList.add(new Pair<>(info.getDescription(), info.getValue()));
+                        infoList.add(info.getDescription()+" : "+info.getValue());
                 }
         );
         logProcess.invokeMethod("writeInfo", infoList);

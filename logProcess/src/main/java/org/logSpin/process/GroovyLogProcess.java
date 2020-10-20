@@ -12,13 +12,13 @@ import java.util.List;
 
 public class GroovyLogProcess extends DefaultLogProcess {
 
-    private static final String GROOVY_URL = "logProcess/src/main/groovy/org/logSpin/process/";
+    private static final String GROOVY_URL = "/GroovyScript/";
     private List<Object> helper;
 
     @SuppressWarnings("unchecked")
     public GroovyLogProcess() {
         try {
-            GroovyScriptEngine groovyScriptEngine = new GroovyScriptEngine(GROOVY_URL);
+            GroovyScriptEngine groovyScriptEngine = new GroovyScriptEngine(System.getProperty("user.dir") + GROOVY_URL);
             Binding binding = new Binding();
             helper = (List<Object>) groovyScriptEngine.run("FileHelper.groovy", binding);
         } catch (IOException | ResourceException | ScriptException e) {
