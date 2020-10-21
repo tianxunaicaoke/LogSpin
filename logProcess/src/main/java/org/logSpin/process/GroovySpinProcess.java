@@ -4,19 +4,21 @@ import groovy.lang.*;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
-import org.logSpin.core.DefaultLogProcess;
+import org.logSpin.Observable;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class GroovyLogProcess extends DefaultLogProcess {
+public class GroovySpinProcess extends DefaultSpinProcess {
+    private final List<Observable<String>> observables = new ArrayList<>();
 
     private static final String GROOVY_URL = "/GroovyScript/";
     private List<Object> helper;
 
     @SuppressWarnings("unchecked")
-    public GroovyLogProcess() {
+    public GroovySpinProcess() {
         try {
             GroovyScriptEngine groovyScriptEngine = new GroovyScriptEngine(System.getProperty("user.dir") + GROOVY_URL);
             Binding binding = new Binding();
@@ -24,6 +26,12 @@ public class GroovyLogProcess extends DefaultLogProcess {
         } catch (IOException | ResourceException | ScriptException e) {
             e.printStackTrace();
         }
+    }
+
+    //Will for optimize later
+    @Override
+    public void addTheObserver(Observable<String> observable) {
+        observables.add(observable);
     }
 
     @Override

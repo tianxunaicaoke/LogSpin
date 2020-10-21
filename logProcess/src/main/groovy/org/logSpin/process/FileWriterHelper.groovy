@@ -2,11 +2,11 @@ package org.logSpin.process
 
 @SuppressWarnings("unused")
 class FileWriterHelper {
-    def text_carve = "======>"
-    def text_logSpin = "----------LoginSpin----------"
-    def text_info = " info"
-    def text_procss = " process"
-    def text_analyze = " analyze"
+    String text_carve = "======>"
+    String text_logSpin = "----------LoginSpin----------"
+    String text_info = " info"
+    String text_procss = " process"
+    String text_analyze = " analyze"
 
     FileWriterHelper() {
         clearFile()
@@ -19,7 +19,7 @@ class FileWriterHelper {
         fileWriter.close()
     }
 
-    static def writeln(fileWriter, value) {
+    static def writeln(fileWriter,  value) {
         fileWriter.write(value)
         fileWriter.append("\n")
         fileWriter.flush()

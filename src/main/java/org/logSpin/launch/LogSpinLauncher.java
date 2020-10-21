@@ -5,14 +5,13 @@ import org.logSpin.plugin.PluginLoader;
 import org.logSpin.Spin;
 import org.logSpin.factory.LogSpinFactory;
 import org.logSpin.plugin.DefaultPluginManager;
-import org.logSpin.core.DefaultLogProcess;
-import org.logSpin.process.GroovyLogProcess;
+import org.logSpin.process.GroovySpinProcess;
 
 public class LogSpinLauncher {
 
 
     public static void main(String[] args) {
-        GroovyLogProcess logProcess = new GroovyLogProcess();
+        GroovySpinProcess logProcess = new GroovySpinProcess();
         Spin spin = new LogSpinFactory(logProcess).provideSpin();
         PluginLoader pluginLoader = new PluginLoader(((DefaultPluginManager)spin
                 .getPluginManager())

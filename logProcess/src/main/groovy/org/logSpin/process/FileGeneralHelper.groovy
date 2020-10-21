@@ -20,4 +20,8 @@ class FileGeneralHelper {
                 return response
         }
     }
+
+    static def findLine(logPath, List<Observable<String>> observables) {
+        FileUtil.forEachLineOfFile(logPath,observables)
+    }
 }

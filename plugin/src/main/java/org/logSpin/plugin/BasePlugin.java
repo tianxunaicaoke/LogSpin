@@ -31,35 +31,28 @@ public class BasePlugin implements Plugin<Spin> {
         this.flowContainer = new FlowContainer();
         this.infoContainer = new InfoContainer();
         this.ruleContainer = new RuleContainer();
-        init();
-    }
-
-    private void init() {
-        spin.getLogProcess().setLogSet(logSet);
-        SpinLogLog.log(" logSet  " + logSet.toString());
+        spin.getProcess().setLogSet(logSet);
     }
 
     public void info(Closure<?> closure) {
         infoContainer.clear();
         infoContainer.configure(closure, infoContainer);
         List<Info> infoList = infoContainer.getList();
-        InfoCase infoCase = new InfoCase.Builder()
-                .caseState(Configured)
-                .build();
+        InfoCase infoCase = new InfoCase();
         infoList.forEach(info -> {
             SpinLogLog.log(info.toString());
             infoCase.addInfo(info);
         });
+        infoCase.setState(Configured);
         spin.getConfiguredCase().add(infoCase);
     }
 
     public void rule(Closure<?> closure) {
         ruleContainer.clear();
         ConfigureUtil.configureByObject(closure, ruleContainer);
-        RuleCase ruleCase = new RuleCase.Builder()
-                .caseState(Configured)
-                .build();
+        RuleCase ruleCase = new RuleCase();
         ruleCase.addRules(ruleContainer.getRuleList());
+        ruleCase.setState(Configured);
         spin.getConfiguredCase().add(ruleCase);
     }
 
@@ -68,11 +61,10 @@ public class BasePlugin implements Plugin<Spin> {
         Arrays.stream(rules).forEach(closure ->
                 ConfigureUtil.configureByObject(closure, ruleContainer)
         );
-        RuleCase ruleCase = new RuleCase.Builder()
-                .caseState(Configured)
-                .build();
+        RuleCase ruleCase = new RuleCase();
         Rule rule = ruleContainer.getMergedRule();
         ruleCase.addRule(rule);
+        ruleCase.setState(Configured);
         spin.getConfiguredCase().add(ruleCase);
         return rule;
     }
@@ -80,7 +72,7 @@ public class BasePlugin implements Plugin<Spin> {
     public void logSet(Closure<?> closure) {
         ConfigureUtil.configureByObject(closure, logSet);
         SpinLogLog.log(" logSet  " + logSet.toString());
-        spin.getLogProcess().setLogSet(logSet);
+        spin.getProcess().setLogSet(logSet);
     }
 
     public void flow(Closure<?> closure) {
@@ -95,9 +87,7 @@ public class BasePlugin implements Plugin<Spin> {
 
     private void resolveRuleCase(List<SpinCase> cases) {
         Iterator<SpinCase> iterator = cases.iterator();
-        RuleCase ruleCase = new RuleCase.Builder()
-                .caseState(Resolved)
-                .build();
+        RuleCase ruleCase = new RuleCase();
         while (iterator.hasNext()) {
             SpinCase spinCase = iterator.next();
             if (spinCase instanceof RuleCase) {
@@ -107,14 +97,13 @@ public class BasePlugin implements Plugin<Spin> {
                         .forEach(ruleCase::addRule);
             }
         }
+        ruleCase.setState(Resolved);
         spin.getResolvedCases().add(ruleCase);
     }
 
     private void resolveInfoCase(List<SpinCase> cases) {
         Iterator<SpinCase> iterator = cases.iterator();
-        InfoCase infoCase = new InfoCase.Builder()
-                .caseState(Resolved)
-                .build();
+        InfoCase infoCase = new InfoCase();
         while (iterator.hasNext()) {
             SpinCase spinCase = iterator.next();
             if (spinCase instanceof InfoCase) {
@@ -122,6 +111,7 @@ public class BasePlugin implements Plugin<Spin> {
                 iterator.remove();
             }
         }
+        infoCase.setState(Resolved);
         spin.getResolvedCases().add(infoCase);
     }
 }

@@ -8,9 +8,7 @@ import java.util.List;
 
 public class VariantCase extends DefaultCase {
 
-    public List<Variant> getVariants() {
-        return variants;
-    }
+    private final Spin spin;
 
     private final List<Variant> variants = new ArrayList<>();
 
@@ -20,16 +18,21 @@ public class VariantCase extends DefaultCase {
         processes.add(processId);
     }
 
+    public VariantCase(Spin spin){
+        this.spin = spin;
+    }
+
     @Override
-    public void action(LogProcess logProcess) {
+    public void action(SpinProcess spinProcess) {
         List<Request> requests = getAndroidProcessRequest();
-        logProcess.invokeMethod("findLine", requests, (Observable<Response>) response -> {
+        spinProcess.invokeMethod("findLine", requests, (Observable<Response>) response -> {
             if (response.getValue() != null && !alreadyContains(response.getValue())) {
                 variants.add(new Variant(convertName(response.getKey()),
                         convertValue(response.getValue())));
             }
         });
-        writeToReport(logProcess);
+        writeToReport(spinProcess);
+        spin.getLogVariantManager().addVariant(variants);
     }
 
     private boolean alreadyContains(String s) {
@@ -37,7 +40,7 @@ public class VariantCase extends DefaultCase {
                 variant.getKey().equals(s));
     }
 
-    private void writeToReport(LogProcess logProcess) {
+    private void writeToReport(SpinProcess spinProcess) {
         List<String> printString = new ArrayList<>();
         variants.forEach(variant -> {
             String s = variant.getKey() + " : " + variant.getName();
@@ -45,7 +48,7 @@ public class VariantCase extends DefaultCase {
                 printString.add(s);
             }
         });
-        logProcess.invokeMethod("writeProcess", printString);
+        spinProcess.invokeMethod("writeProcess", printString);
     }
 
     private List<Request> getAndroidProcessRequest() {

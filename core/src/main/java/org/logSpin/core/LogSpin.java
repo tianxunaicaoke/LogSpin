@@ -11,24 +11,36 @@ public class LogSpin implements Spin {
 
     private final ScriptRunner scriptRunner;
     private final PluginManager<Spin> pluginManager;
+    private final List<SpinCase> preActionCases;
     private final List<SpinCase> resolvedCase;
     private final List<SpinCase> configuredCase;
-    private final LogProcess logProcess;
+    private final SpinProcess spinProcess;
     private final LogVariantManager logVariantManager;
 
-    public LogSpin(PluginContainer<Plugin<Spin>> pluginContainer, ScriptRunner scriptRunner, LogProcess logProcess) {
+    public LogSpin(PluginContainer<Plugin<Spin>> pluginContainer, ScriptRunner scriptRunner, SpinProcess spinProcess) {
         this.scriptRunner = scriptRunner;
+        this.spinProcess = spinProcess;
         this.pluginManager = new DefaultPluginManager(pluginContainer);
-        this.logProcess = logProcess;
         this.resolvedCase = new ArrayList<>();
         this.configuredCase = new ArrayList<>();
         this.logVariantManager = new DefaultLogSpinManager();
+        this.preActionCases = new ArrayList<>();
     }
 
     @Override
     public void configure(String[] arg) {
+        applyPrePlugin();
         scriptRunner.runScriptToConfigSpin(arg);
         resolveCase();
+    }
+
+    private void applyPrePlugin() {
+        pluginManager.addPlugin("BasePlugin");
+        pluginManager.getPluginContainer()
+                .getPlugins()
+                .values()
+                .forEach(spinPlugin ->
+                        spinPlugin.apply(this));
     }
 
     private void resolveCase() {
@@ -39,15 +51,26 @@ public class LogSpin implements Spin {
                         plugin ->
                                 plugin.resolveCase(this)
                 );
+        perAnalyse();
+    }
+
+    private void perAnalyse() {
+        preActionCases.forEach(spinCase ->
+                spinCase.action(spinProcess));
         logVariantManager.applyVariant(resolvedCase);
         analyse();
     }
 
     @Override
     public void analyse() {
-        getResolvedCases().forEach(spinCase ->
-                spinCase.action(getLogProcess())
+        resolvedCase.forEach(spinCase ->
+                spinCase.action(spinProcess)
         );
+    }
+
+    @Override
+    public void addPreAnalyseCase(SpinCase preActionCase) {
+        preActionCases.add(preActionCase);
     }
 
     @Override
@@ -61,8 +84,8 @@ public class LogSpin implements Spin {
     }
 
     @Override
-    public LogProcess getLogProcess() {
-        return logProcess;
+    public SpinProcess getProcess() {
+        return spinProcess;
     }
 
     @Override

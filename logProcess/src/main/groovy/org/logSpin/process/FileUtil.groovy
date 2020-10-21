@@ -1,5 +1,6 @@
 package org.logSpin.process
 
+import org.logSpin.Observable
 import org.logSpin.Response
 
 class FileUtil {
@@ -50,10 +51,24 @@ class FileUtil {
             path ->
                 File file = new File(path as String)
                 file.eachLine {
-                    line ->
+                    line ,number->
                         def value = check(keys, line, action)
                         if (value) {
                             observable.next(value)
+                        }
+                        value
+                }
+        }
+    }
+
+    static def forEachLineOfFile(logPath, List<Observable<String>> observables) {
+        logPath.each {
+            path ->
+                File file = new File(path as String)
+                file.eachLine {
+                    line ,number->
+                        observables.each{
+                            observable -> observable.next(line)
                         }
                 }
         }
