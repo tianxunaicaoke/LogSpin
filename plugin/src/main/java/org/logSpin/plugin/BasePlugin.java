@@ -4,6 +4,7 @@ import groovy.lang.Closure;
 import org.logSpin.*;
 
 import org.logSpin.core.ConfigureUtil;
+import org.logSpin.spinCase.FlowCase;
 import org.logSpin.spinCase.InfoCase;
 import org.logSpin.Rule;
 import org.logSpin.spinCase.RuleCase;
@@ -37,12 +38,8 @@ public class BasePlugin implements Plugin<Spin> {
     public void info(Closure<?> closure) {
         infoContainer.clear();
         infoContainer.configure(closure, infoContainer);
-        List<Info> infoList = infoContainer.getList();
         InfoCase infoCase = new InfoCase();
-        infoList.forEach(info -> {
-            SpinLogLog.log(info.toString());
-            infoCase.addInfo(info);
-        });
+        infoCase.addInfos(infoContainer.getList());
         infoCase.setState(Configured);
         spin.getConfiguredCase().add(infoCase);
     }
@@ -76,13 +73,33 @@ public class BasePlugin implements Plugin<Spin> {
     }
 
     public void flow(Closure<?> closure) {
+        flowContainer.clear();
         flowContainer.configure(closure, flowContainer);
+        FlowCase flowCase = new FlowCase();
+        flowCase.addFlows(flowContainer.getList());
+        flowCase.setState(Configured);
+        spin.getConfiguredCase().add(flowCase);
     }
 
     @Override
     public void resolveCase(Spin spin) {
         resolveInfoCase(spin.getConfiguredCase());
         resolveRuleCase(spin.getConfiguredCase());
+        resolveFlowCase(spin.getConfiguredCase());
+    }
+
+    private void resolveFlowCase(List<SpinCase> cases) {
+        Iterator<SpinCase> iterator = cases.iterator();
+        FlowCase flowCase = new FlowCase();
+        while (iterator.hasNext()) {
+            SpinCase spinCase = iterator.next();
+            if (spinCase instanceof FlowCase) {
+                flowCase.merge((FlowCase) spinCase);
+                iterator.remove();
+            }
+        }
+        flowCase.setState(Resolved);
+        spin.getResolvedCases().add(flowCase);
     }
 
     private void resolveRuleCase(List<SpinCase> cases) {

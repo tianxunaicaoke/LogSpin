@@ -22,6 +22,10 @@ public class InfoCase extends DefaultCase {
         list.add(info);
     }
 
+    public void addInfos(List<Info> infos){
+        list.addAll(infos);
+    }
+
     @Override
     public void action(SpinProcess spinProcess) {
         searchAndUpdateInfo(spinProcess);
