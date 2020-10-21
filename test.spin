@@ -39,5 +39,15 @@ def mount = {
 
 when hasCard, mount then "123"
 
+flow {
+  navigation{
+   key " "," "
+  }
+
+  predictiveCard{
+   key " "," "
+  }
+}
+
 
 
