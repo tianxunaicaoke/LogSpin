@@ -16,7 +16,7 @@ public class PluginLoader {
     }
 
     @SuppressWarnings("unused")
-    public void addExternalPlugin(String pluginId,Class<? extends Plugin<Spin>> clazz){
+    public void loadExternalPlugin(String pluginId,Class<? extends Plugin<Spin>> clazz){
         pluginRegister.register(pluginId,clazz);
     }
 }

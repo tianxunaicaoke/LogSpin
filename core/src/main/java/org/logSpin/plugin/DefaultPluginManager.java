@@ -38,4 +38,9 @@ public class DefaultPluginManager implements PluginManager<Spin> {
     public boolean contain(String id) {
         return pluginContainer.contain(id);
     }
+
+    @Override
+    public void addPlugin(String id) {
+        pluginContainer.addPlugin(id, getPluginById(id));
+    }
 }

@@ -1,8 +1,9 @@
 package org.logSpin;
 
 
-public interface LogProcess {
+public interface SpinProcess {
     void setLogSet(LogSet logSet);
+    void addTheObserver(Observable<String> observable);
 
     Object invokeMethod(String name, Object... o);
 

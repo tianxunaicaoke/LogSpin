@@ -1,6 +1,6 @@
 /.idea/ .gradle/ .build/
 /core/build/
 /foundation/build/
-/logProcess/build/
+/spinProcess/build/
 /plugin/build/
 /report/build/

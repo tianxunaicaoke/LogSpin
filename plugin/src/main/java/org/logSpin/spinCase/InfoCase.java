@@ -10,10 +10,6 @@ public class InfoCase extends DefaultCase {
 
     private final List<Info> list = new ArrayList<>();
 
-    public InfoCase(CaseState caseState) {
-        setState(caseState);
-    }
-
     public List<Info> getList() {
         return list;
     }
@@ -27,20 +23,15 @@ public class InfoCase extends DefaultCase {
     }
 
     @Override
-    public void action(LogProcess logProcess) {
-        searchAndUpdateInfo(logProcess);
-        writeToReport(logProcess);
+    public void action(SpinProcess spinProcess) {
+        searchAndUpdateInfo(spinProcess);
+        writeToReport(spinProcess);
     }
 
-    @Override
-    public void applyVariant(List<Variant> variants) {
-
-    }
-
-    private void searchAndUpdateInfo(LogProcess logProcess) {
+    private void searchAndUpdateInfo(SpinProcess spinProcess) {
         List<Request> requests = new ArrayList<>();
         list.forEach(info -> requests.add(new Request(info.getKey())));
-        logProcess.invokeMethod("search", requests, (Observable<Response>) response ->
+        spinProcess.invokeMethod("search", requests, (Observable<Response>) response ->
             list.stream()
                     .filter(info -> Objects.equals(info.getKey(), response.getKey()))
                     .findAny()
@@ -48,26 +39,13 @@ public class InfoCase extends DefaultCase {
         );
     }
 
-    private void writeToReport(LogProcess logProcess) {
+    private void writeToReport(SpinProcess spinProcess) {
         List<String> infoList = new ArrayList<>();
         list.forEach(info -> {
                     if (info.getValue() != null)
                         infoList.add(info.getDescription()+" : "+info.getValue());
                 }
         );
-        logProcess.invokeMethod("writeInfo", infoList);
-    }
-
-    public static class Builder {
-        private CaseState caseState;
-
-        public Builder caseState(CaseState caseState) {
-            this.caseState = caseState;
-            return this;
-        }
-
-        public InfoCase build() {
-            return new InfoCase(this.caseState);
-        }
+        spinProcess.invokeMethod("writeInfo", infoList);
     }
 }

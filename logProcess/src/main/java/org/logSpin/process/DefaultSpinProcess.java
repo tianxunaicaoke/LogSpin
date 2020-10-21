@@ -1,9 +1,10 @@
-package org.logSpin.core;
+package org.logSpin.process;
 
 import org.logSpin.LogSet;
-import org.logSpin.LogProcess;
+import org.logSpin.SpinProcess;
+import org.logSpin.core.AbstractDynamicObject;
 
-public abstract class DefaultLogProcess extends AbstractDynamicObject implements LogProcess {
+public abstract class DefaultSpinProcess extends AbstractDynamicObject implements SpinProcess {
 
     private LogSet logSet;
 

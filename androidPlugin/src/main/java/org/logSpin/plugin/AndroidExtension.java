@@ -1,5 +1,6 @@
 package org.logSpin.plugin;
 
+import org.logSpin.Spin;
 import org.logSpin.spinCase.VariantCase;
 
 import java.util.Arrays;
@@ -9,11 +10,11 @@ public class AndroidExtension {
 
     private final VariantCase variantCase;
 
-    public AndroidExtension() {
-        variantCase = new VariantCase();
+    public AndroidExtension(Spin spin) {
+        variantCase = new VariantCase(spin);
     }
 
-    public VariantCase getScopeCase() {
+    public VariantCase getVariantCase() {
         return variantCase;
     }
 
