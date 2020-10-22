@@ -57,7 +57,7 @@ flow {
 ~~~
 Then click Run.bat
 Click the run.bat, Select the Spin file.  
-<img src="Run.png" />
+<img src="Run.png" width="250px" />
 ### Base Element
    *Info* :
    > To get the message not changed in the hole log file.
