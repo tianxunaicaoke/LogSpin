@@ -57,7 +57,7 @@ flow {
 ~~~
 Then click Run.bat
 Click the run.bat, Select the Spin file.  
-![image](Run.png)
+<img src="Run.png" />
 ### Base Element
    *Info* :
    > To get the message not changed in the hole log file.
@@ -74,4 +74,4 @@ Click the run.bat, Select the Spin file.
    > To get the message will change during the one log scope, and this kind key word can make a flow of work.
 
 ## framework
-![image](design.png)
+<img src="design.png" />
