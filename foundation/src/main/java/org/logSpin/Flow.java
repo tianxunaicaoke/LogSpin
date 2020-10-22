@@ -10,6 +10,10 @@ public class Flow {
     private final List<String> keys = new ArrayList<>();
     private final List<String> flowValue = new ArrayList<>();
 
+    public List<String> getFlowValue() {
+        return flowValue;
+    }
+
     public String getName() {
         return name;
     }

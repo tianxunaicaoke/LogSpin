@@ -38,6 +38,20 @@ class FileUtil {
     }
 
     /**
+     * To check if the line contain one of the keys.
+     * @param keys
+     * @param line
+     * @param action
+     * @return Response
+     */
+    static Response checkAll(keys, line, action) {
+        def r = keys.find {
+            line.contains(it.key)&&line.contains(it.variant)
+        }
+        action(line, r)
+    }
+
+    /**
      * Check the file under the logPath, find the line match the request, then invoke action, and notify to invoker.
      * @param logPath
      * @param keys

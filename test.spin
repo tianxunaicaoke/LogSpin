@@ -1,12 +1,11 @@
 apply "AndroidPlugin"
 
 logSet{
-   logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\main.log",
-   "C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
+   logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
 }
 
 android{
-   process "com.telenav.app.denali.na","com.telenav.app.denali.na:cluster"
+   process "com.telenav.app.denali.na"
 }
 
 info {
@@ -41,11 +40,11 @@ when hasCard, mount then "123"
 
 flow {
   navigation{
-   key " "," "
+   key "SpeechUIProvider: notifyNavigationStatus"
   }
 
   predictiveCard{
-   key " "," "
+   key "fetchDestinations","fetching key destinations"
   }
 }
 

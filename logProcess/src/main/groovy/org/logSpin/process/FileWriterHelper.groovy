@@ -6,7 +6,6 @@ class FileWriterHelper {
     String text_logSpin = "----------LoginSpin----------"
     String text_info = " info"
     String text_procss = " process"
-    String text_analyze = " analyze"
 
     FileWriterHelper() {
         clearFile()
@@ -43,8 +42,6 @@ class FileWriterHelper {
 
     def writeRule(Object rules) {
         def fileWriter = new FileWriter("report.txt", true)
-        write(fileWriter, text_carve)
-        writeln(fileWriter, text_analyze)
         rules.each {
             it -> writeln(fileWriter, it)
         }
