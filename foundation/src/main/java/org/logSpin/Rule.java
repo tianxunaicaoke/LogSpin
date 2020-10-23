@@ -43,7 +43,7 @@ public class Rule {
         return !when.isEmpty() && then != null;
     }
 
-    public void resetRule(){
-        when.values().forEach(it -> it = false);
+    public void resetRule() {
+        when.keySet().forEach(it -> updateRule(it, false));
     }
 }
