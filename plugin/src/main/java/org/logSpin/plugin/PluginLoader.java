@@ -22,4 +22,8 @@ public class PluginLoader {
     public void loadExternalPlugin(String pluginId,Class<? extends Plugin<Spin>> clazz){
         pluginRegister.register(pluginId,clazz);
     }
+
+    public void loadExternalPluginUnderFolder(){
+        pluginJarHandler.getThePluginUnderFolder().forEach(this::loadExternalPlugin);
+    }
 }

@@ -1,5 +1,8 @@
 apply "AndroidPlugin"
-apply "sdcard.spin"
+apply "NavigationPlugin"
+
+navigation{
+}
 
 logSet{
    logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\58-main.log","C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
