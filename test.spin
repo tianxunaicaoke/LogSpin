@@ -1,7 +1,11 @@
 apply "AndroidPlugin"
+apply "NavigationPlugin"
+
+navigation{
+}
 
 logSet{
-   logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
+   logPath = ["C:\\Users\\xtian\\Downloads\\gmlogger\\58-main.log","C:\\Users\\xtian\\Downloads\\gmlogger\\97-main.log_2020_9_29_8_58_43\\97-main.log"]
 }
 
 android{
@@ -39,12 +43,12 @@ def mount = {
 when hasCard, mount then "123"
 
 flow {
-  navigation{
-   key "SpeechUIProvider: notifyNavigationStatus"
-  }
-
   predictiveCard{
    key "fetchDestinations","fetching key destinations"
+  }
+
+  ShowEteOnCluster{
+  key "invoke refreshETAByNavKit","notify smart card estimation time: topBox","Received notifyListContentChanged request"
   }
 }
 

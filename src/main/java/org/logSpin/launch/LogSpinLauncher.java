@@ -17,6 +17,7 @@ public class LogSpinLauncher {
                 .getPluginManager())
                 .getPluginRegister());
         pluginLoader.loadAllInternalPlugin();
+        pluginLoader.loadExternalPluginUnderFolder();
         if (args.length > 0) {
             spin.configure(args);
         } else {

@@ -18,7 +18,7 @@ public class VariantCase extends DefaultCase {
         processes.add(processId);
     }
 
-    public VariantCase(Spin spin){
+    public VariantCase(Spin spin) {
         this.spin = spin;
     }
 
@@ -31,7 +31,11 @@ public class VariantCase extends DefaultCase {
                         convertValue(response.getValue())));
             }
         });
-        writeToReport(spinProcess);
+        if (variants.size() == 0) {
+            variants.add(new Variant("", ""));
+        } else {
+            writeToReport(spinProcess);
+        }
         spin.getLogVariantManager().addVariant(variants);
     }
 
