@@ -1,5 +1,6 @@
 plugins {
     id 'groovy'
+    id 'maven-publish'
 }
 
 group 'org.example'
@@ -7,6 +8,13 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 dependencies {

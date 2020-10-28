@@ -2,6 +2,7 @@ package org.logSpin.dynamicJar;
 
 import org.logSpin.Plugin;
 import org.logSpin.Spin;
+import org.logSpin.plugin.PluginHandler;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-public class PluginJarHandler {
+public class PluginJarHandler implements PluginHandler {
     private static final String PLUGIN_URL = "/ExternalPlugin/";
     private final DynamicLoadJar dynamicLoadJar;
     private final HashMap<String, Class<? extends Plugin<Spin>>> ExternalPlugins;
@@ -39,5 +40,10 @@ public class PluginJarHandler {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public HashMap<String, Class<? extends Plugin<Spin>>> getPlugins() {
+        return  getThePluginUnderFolder();
     }
 }

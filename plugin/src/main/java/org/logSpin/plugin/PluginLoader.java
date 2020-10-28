@@ -6,11 +6,11 @@ import org.logSpin.dynamicJar.PluginJarHandler;
 
 public class PluginLoader {
     PluginRegister pluginRegister;
-    PluginJarHandler pluginJarHandler;
+    PluginHandler pluginHandler;
 
     public PluginLoader(PluginRegister pluginRegister) {
         this.pluginRegister = pluginRegister;
-        this.pluginJarHandler = new PluginJarHandler();
+        this.pluginHandler = new PluginJarHandler();
     }
 
     public void loadAllInternalPlugin() {
@@ -24,6 +24,6 @@ public class PluginLoader {
     }
 
     public void loadExternalPluginUnderFolder(){
-        pluginJarHandler.getThePluginUnderFolder().forEach(this::loadExternalPlugin);
+        pluginHandler.getPlugins().forEach(this::loadExternalPlugin);
     }
 }
