@@ -2,5 +2,5 @@
 /core/build/
 /foundation/build/
 /spinProcess/build/
-/plugin/build/
+/org.logSpin.annotation.plugin/build/
 /report/build/

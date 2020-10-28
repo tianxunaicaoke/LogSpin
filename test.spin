@@ -51,6 +51,3 @@ flow {
   key "invoke refreshETAByNavKit","notify smart card estimation time: topBox","Received notifyListContentChanged request"
   }
 }
-
-
-

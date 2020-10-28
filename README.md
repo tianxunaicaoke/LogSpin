@@ -14,7 +14,7 @@ logSet{
    logPath = ["xx","xx"] //log path
 }
 
-// Android plugin support
+// Android org.logSpin.annotation.plugin support
 android{
    process "com.xx.xx.xxx", "com.xx.xx.xxx"
 }
@@ -63,7 +63,7 @@ Click the run.bat, Select the Spin file.
    > To get the message not changed in the hole log file.
   
    *Rule* :
-   > To get the message is not change during one log scope(like the android plugin support process scope), and this element work with "When" and "Then".
+   > To get the message is not change during one log scope(like the android org.logSpin.annotation.plugin support process scope), and this element work with "When" and "Then".
     
    *When* :
    > Set the condition keyword for check 
