@@ -1,6 +1,6 @@
 package org.logSpin.script;
 
-import org.logSpin.Exception.NoMethodFindException;
+import org.logSpin.Exception.NoMethodFoundException;
 import org.logSpin.Plugin;
 import org.logSpin.Spin;
 import org.logSpin.core.AbstractDynamicObject;
@@ -28,6 +28,6 @@ public class DefaultScriptDelegate extends AbstractDynamicObject implements Scri
                 return result;
             }
         }
-        throw new NoMethodFindException(name);
+        throw new NoMethodFoundException(name);
     }
 }

@@ -1,5 +1,6 @@
 package org.logSpin.plugin;
 
+import org.logSpin.Exception.NoPluginFoundException;
 import org.logSpin.Plugin;
 import org.logSpin.PluginContainer;
 import org.logSpin.PluginManager;
@@ -20,9 +21,16 @@ public class DefaultPluginManager implements PluginManager<Spin> {
     @Override
     public Plugin<Spin> getPluginById(String id) {
         try {
-            return contain(id)
-                    ? pluginContainer.getPlugins().get(id)
-                    : pluginRegister.getPlugin(id).getPluginClass().newInstance();
+            if (contain(id)) {
+                return pluginContainer.getPlugins().get(id);
+            } else {
+                PluginId pluginId = pluginRegister.getPlugin(id);
+                if (pluginId != null) {
+                    return pluginRegister.getPlugin(id).getPluginClass().newInstance();
+                }else{
+                    throw new NoPluginFoundException(id);
+                }
+            }
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,10 @@ public class DefaultSpinAnnotationProcess extends AbstractProcessor {
         }
 
         List<Element> classList = new ArrayList<>(roundEnv.getElementsAnnotatedWith(org.logSpin.annotation.Plugin.class));
-        System.out.println("process ------------");
+        classList.forEach(element -> {
+            System.out.println("process ------------"+element.getSimpleName());
+
+        });
         return false;
     }
 
