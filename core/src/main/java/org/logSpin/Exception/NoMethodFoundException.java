@@ -1,9 +1,9 @@
 package org.logSpin.Exception;
 
-public class NoMethodFindException extends RuntimeException {
+public class NoMethodFoundException extends RuntimeException {
     private final String method;
 
-    public NoMethodFindException(String method) {
+    public NoMethodFoundException(String method) {
         this.method = method;
     }
 

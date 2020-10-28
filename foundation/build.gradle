@@ -3,12 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-group 'org.LogSpin'
+group 'org.xtian.logspin'
 version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
 
 publishing {
     publications {

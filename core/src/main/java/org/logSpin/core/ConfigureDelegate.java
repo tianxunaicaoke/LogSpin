@@ -3,7 +3,7 @@ package org.logSpin.core;
 import groovy.lang.Closure;
 import groovy.lang.GroovyObjectSupport;
 import org.logSpin.DynamicObject;
-import org.logSpin.Exception.NoMethodFindException;
+import org.logSpin.Exception.NoMethodFoundException;
 
 public class ConfigureDelegate extends GroovyObjectSupport {
     private final DynamicObject owner;
@@ -33,7 +33,7 @@ public class ConfigureDelegate extends GroovyObjectSupport {
             owner.tryInvokeMethod(owner,name, params);
         }
         if(result == null){
-            throw new NoMethodFindException(name);
+            throw new NoMethodFoundException(name);
         }
         return result;
     }

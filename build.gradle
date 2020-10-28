@@ -4,12 +4,14 @@ plugins {
     id 'maven-publish'
 }
 
-group 'org.xtian.logSpin'
+group 'org.xtian.logspin'
 version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-    mavenLocal()
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 }
 
 dependencies {
@@ -19,13 +21,14 @@ dependencies {
     compile(project(":foundation"))
     compile(project(":plugin"))
     compile(project(":logProcess"))
-    compile(project(":annotation"))
+    annotationProcessor(project(":annotation"))
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+            artifactId 'launch'
         }
     }
 }
@@ -38,7 +41,6 @@ jar {
         attributes 'Class-Path': module
     }
 }
-
 
 task copyJar(type:Copy){
     from configurations.runtime

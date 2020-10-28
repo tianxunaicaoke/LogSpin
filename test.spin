@@ -1,5 +1,6 @@
 apply "AndroidPlugin"
 apply "NavigationPlugin"
+apply "test"
 
 navigation{
 }
