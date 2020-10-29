@@ -5,9 +5,9 @@ import org.logSpin.Spin;
 
 public class PluginId {
     private final String id;
-    private final Class<? extends Plugin<Spin>> pluginClass;
+    private final Class<?> pluginClass;
 
-    public PluginId(String id, Class<? extends Plugin<Spin>> pluginClass) {
+    public PluginId(String id, Class<?> pluginClass) {
         this.id = id;
         this.pluginClass = pluginClass;
     }
@@ -17,6 +17,6 @@ public class PluginId {
     }
 
     public Class<? extends Plugin<Spin>> getPluginClass() {
-        return pluginClass;
+        return (Class<? extends Plugin<Spin>>) pluginClass;
     }
 }

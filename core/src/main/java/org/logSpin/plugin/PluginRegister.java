@@ -18,7 +18,6 @@ import java.util.jar.Manifest;
 
 public class PluginRegister {
     private final List<PluginId> pluginIdList = new ArrayList<>();
-    private final List<Class<?>> classes = new ArrayList<>();
 
     public void register(String id, Class<? extends Plugin<Spin>> clazz) {
         pluginIdList.add(new PluginId(id, clazz));
@@ -31,12 +30,18 @@ public class PluginRegister {
                 .orElse(null);
 
         if (pluginId == null) {
-            pluginId = tryGetPluginFromDependence(PluginId);
+            pluginId = getExternalPluginId(PluginId);
         }
         return pluginId;
     }
 
+    private PluginId getExternalPluginId(String id) {
+        PluginId pluginId = tryGetPluginFromAnnotation(id);
+        return pluginId == null ? tryGetPluginFromDependence(id) : pluginId;
+    }
+
     private PluginId tryGetPluginFromDependence(String id) {
+        List<PluginId> list = new ArrayList<>();
         try {
             Field ucpfield = URLClassLoader.class.getDeclaredField("ucp");
             ucpfield.setAccessible(true);
@@ -45,15 +50,14 @@ public class PluginRegister {
             Field pathField = URLClassPath.class.getDeclaredField("path");
             pathField.setAccessible(true);
             ArrayList<URL> path = (ArrayList<URL>) pathField.get(classPath);
-            
-            List<PluginId> list = new ArrayList<>();
+
             path.stream().filter(p -> p.getPath().contains("jar")).forEach(
                     p -> {
                         File file = new File(p.getPath());
                         try {
                             JarFile jarFile = new JarFile(file);
-                            PluginId pluginId = fillPluginInfo(id,jarFile);
-                            if(pluginId!=null){
+                            PluginId pluginId = fillPluginInfo(id, jarFile);
+                            if (pluginId != null) {
                                 list.add(pluginId);
                             }
 
@@ -62,13 +66,34 @@ public class PluginRegister {
                         }
                     }
             );
-            return list.stream().findFirst().orElse(null);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return null;
+        return list.stream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    private PluginId tryGetPluginFromAnnotation(String id) {
+        List<Class<?>> clazzs = new ArrayList<>();
+        try {
+            Field classesField = ClassLoader.class.getDeclaredField("classes");
+            classesField.setAccessible(true);
+            Vector<Class<?>> classes = (Vector<Class<?>>) classesField.get(Thread.currentThread().getContextClassLoader());
+            clazzs.addAll(classes);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return clazzs.stream().filter(clazz ->
+                clazz.getAnnotation(org.logSpin.annotation.Plugin.class) != null
+                        && clazz.getName().contains(id))
+                .map(clazz -> new PluginId(id, clazz))
+                .findFirst()
+                .orElse(null);
     }
 
     private PluginId fillPluginInfo(String id, JarFile jarFile) {

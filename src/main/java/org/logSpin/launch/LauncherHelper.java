@@ -1,13 +1,11 @@
 package org.logSpin.launch;
 
 import org.logSpin.Spin;
-import org.logSpin.annotation.Plugin;
 import org.logSpin.factory.LogSpinFactory;
 import org.logSpin.plugin.DefaultPluginManager;
 import org.logSpin.plugin.PluginLoader;
 import org.logSpin.process.GroovySpinProcess;
 
-@Plugin
 public class LauncherHelper {
     private final GroovySpinProcess logProcess;
     private final Spin spin;
