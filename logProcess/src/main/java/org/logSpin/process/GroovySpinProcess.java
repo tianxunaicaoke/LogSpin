@@ -15,6 +15,8 @@ public class GroovySpinProcess extends DefaultSpinProcess {
     private final List<Observable<String>> observables = new ArrayList<>();
 
     private static final String GROOVY_URL = "/GroovyScript/";
+    private static final String GROOVY_SECOND_URL = "logProcess/src/main/groovy/org/logSpin/process/";
+
     private List<Object> helper;
 
     @SuppressWarnings("unchecked")
@@ -24,7 +26,18 @@ public class GroovySpinProcess extends DefaultSpinProcess {
             Binding binding = new Binding();
             helper = (List<Object>) groovyScriptEngine.run("FileHelper.groovy", binding);
         } catch (IOException | ResourceException | ScriptException e) {
-            e.printStackTrace();
+            GroovyScriptEngine groovyScriptEngine = null;
+            try {
+                groovyScriptEngine = new GroovyScriptEngine(GROOVY_SECOND_URL);
+                Binding binding = new Binding();
+                helper = (List<Object>) groovyScriptEngine.run("FileHelper.groovy", binding);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (ResourceException resourceException) {
+                resourceException.printStackTrace();
+            } catch (ScriptException scriptException) {
+                scriptException.printStackTrace();
+            }
         }
     }
 
