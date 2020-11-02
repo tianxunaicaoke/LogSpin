@@ -31,6 +31,12 @@ publishing {
             artifactId 'launch'
         }
     }
+
+    repositories {
+        maven{
+            url = publishUrl
+        }
+    }
 }
 
 jar {
