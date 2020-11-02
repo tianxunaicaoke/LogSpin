@@ -17,4 +17,10 @@ publishing {
             from components.java
         }
     }
+
+    repositories {
+        maven{
+            url = publishUrl
+        }
+    }
 }
