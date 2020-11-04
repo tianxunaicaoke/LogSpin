@@ -4,8 +4,7 @@ import org.logSpin.Plugin;
 import org.logSpin.Spin;
 import sun.misc.URLClassPath;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -78,6 +77,7 @@ public class PluginRegister {
 
     private PluginId tryGetPluginFromAnnotation(String id) {
         List<Class<?>> clazzs = new ArrayList<>();
+        loadThePluginClass();
         try {
             Field classesField = ClassLoader.class.getDeclaredField("classes");
             classesField.setAccessible(true);
@@ -94,6 +94,25 @@ public class PluginRegister {
                 .map(clazz -> new PluginId(id, clazz))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private void loadThePluginClass(){
+        try {
+            FileReader fileReader = new FileReader("Plugins.txt");
+            BufferedReader br = new BufferedReader(fileReader);
+            br.lines().forEach(
+                    line->
+                    {
+                        try {
+                            Class<?> clazz = Class.forName(line);
+                            clazz.newInstance();
+                        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
+        } catch (IOException e) {
+        }
     }
 
     private PluginId fillPluginInfo(String id, JarFile jarFile) {
