@@ -2,7 +2,7 @@ apply "AndroidPlugin"
 apply "NavigationPlugin"
 
 logSet{
-   logPath = ["C:\\Users\\xtian\\Desktop\\main.log"]
+   logPath = ["C:\\Users\\xtian\\Desktop\\main.log","C:\\Users\\xtian\\Desktop\\main1.log","C:\\Users\\xtian\\Desktop\\main2.log"]
 }
 
 android{
@@ -11,7 +11,7 @@ android{
 
 info {
    region{
-     key = "loadAppConfig for region"
+     key = "getRegionForSearch"
      description "current region"
    }
    appVersion {
@@ -26,7 +26,7 @@ info {
 
 rule {
   when "pcLabel:  Work" then "has Work card"
-  when "startRouteCalculate","notifyCardEstimationTimeCalculated" then "has calculate route"
+  when "startRouteCalculate" then "has calculate route"
 }
 
 def hasCard = {
@@ -40,8 +40,8 @@ def mount = {
 when hasCard, mount then "123"
 
 flow {
-  predictiveCard{
-   key "fetchDestinations","fetching key destinations"
+  pageState{
+   key "onPageStart","onPageStop"
   }
 
   ShowEteOnCluster{
