@@ -17,7 +17,7 @@ public class DynamicLoadJar {
 
     {
         try {
-            classloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+            classloader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
             addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
             addURL.setAccessible(true);
         } catch (Exception e) {
