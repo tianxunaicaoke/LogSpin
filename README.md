@@ -1,4 +1,4 @@
-# LogSpin  <img src="Spin.png" width="50px" alt="Spin Logo" />
+# <img src="Spin.png" width="50px" alt="Spin Logo" />  LogSpin  
 
 LogSpin is for user to custom the way to get information for log. You can customize the spin file to adapt to different scenarios, and you can extend its functionality by customizing plugins. LogSpin offers a flexible model that can support the different usage requirements for anyone.
 - [LogSpin](#logspin)
