@@ -1,5 +1,6 @@
 # LogSpin  <img src="Spin.png" width="50px" alt="Spin Logo" />
 
+LogSpin is for user to custom the way to get information for log. You can customize the spin file to adapt to different scenarios, and you can extend its functionality by customizing plugins. LogSpin offers a flexible model that can support the different usage requirements for anyone.
 - [LogSpin](#logspin)
   - [Get Start](#get-start)
     - [Quick Use](#quick-use)
@@ -9,15 +10,18 @@
     - [how to write plugin](#how-to-write-plugin)
     - [how to export the plugin](#how-to-export-the-plugin)
   - [framework](#framework)
- LogSpin is for user to custom the way to get information for log. You can customize the spin file to adapt to different scenarios, and you can extend its functionality by customizing plugins. LogSpin offers a flexible model that can support the different usage requirements for anyone.
-
+  
 ## Get Start
 ### Quick Use
 First Create the Spin file. The example Spin file will be introduced later.
+ 
   For tool user:
-    First to download the Spin-tool.zip, Unzip and then click Run.bat, fill the log path to Spin, and select the Spin file.  
+  
+   First to download the Spin-tool.zip, Unzip and then click Run.bat, fill the log path to Spin, and select the Spin file.  
    <img src="Run.png" width="250px" />
+   
   For code user:
+  
    First to add dependency
    ~~~
    repositories {
@@ -114,7 +118,9 @@ flow {
 }
 ~~~
 ### how to apply the plugin
- 1. First add dependency.
+ For code user:
+ 
+ First add dependency.
  ~~~
    repositories {
          maven{
@@ -130,13 +136,73 @@ flow {
  ~~~
  then follow the run by code.
 
+  For jar user:
+  
+  Download the plugin jar, and put it to the folder ExternalPlugin folder under root path,
+  Spin system can will load the plugin under that folder.
+  Then you can apply this plugin in spin file:
+  ~~~
+   apply "XXXPlugin"
+   ...
+  ~~~
 ### how to write plugin
- 1. First set up the code run environment as above. 
+ First set up the code run environment as above. 
+ And add annotation dependency:
+ ~~~
+dependencies {
+    ...
+    //This for spin system to understand which is plugin
+    annotationProcessor 'org.xtian.logspin:annotation:1.1-SNAPSHOT'
+}
+ ~~~
+Then create Plugin:
+~~~
+// you need annotation the plugin as @org.logSpin.annotation.Plugin
+@org.logSpin.annotation.Plugin
+public class NavigationPlugin implements Plugin<Spin> {
 
+   ...
+    @Override
+    public void resolveCase(Spin spin) {
+     // this part will be invoke when the Spin is finish configuration
+    }
 
+    @Override
+    public void apply(Spin spin) {
+        //this part is init
+       ...
+    }
+
+    public void function(Closure closure) {
+        closure.run();
+        //This part is for plugin user to Customized
+    }
+
+   ...
+}
+~~~
+So you can add function closure to Spin file:
+~~~
+ apply "NavigationPlugin"
+ ...
+ function{
+   .....
+ }
+ ...
+~~~
 ### how to export the plugin
-
-
-
+First add the plugin name and class name to the manifest.
+~~~
+jar {
+    manifest {
+        attributes 'Plugin-Class': 'xx.xx.pluginClassName'
+        attributes 'Plugin-Name': 'pluginName'
+    }
+}
+~~~
+Then publish it to maven, for other people to use.
 ## framework
 <img src="design.png" />
+
+## code structure
+<img src="componect.svg">
