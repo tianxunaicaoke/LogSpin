@@ -1,5 +1,5 @@
-# LogSpin  
-<img src="Spin.png" width="150px" alt="Spin Logo" />
+# LogSpin  <img src="Spin.png" width="50px" alt="Spin Logo" />
+
 - [LogSpin](#logspin)
   - [Get Start](#get-start)
     - [Quick Use](#quick-use)
@@ -14,10 +14,10 @@
 ## Get Start
 ### Quick Use
 First Create the Spin file. The example Spin file will be introduced later.
- 1. For tool user:
-   > First to download the Spin-tool.zip, Unzip and then click Run.bat, fill the log path to Spin, and select the Spin file.  
-<img src="Run.png" width="250px" />
- 2. For code user:
+  For tool user:
+    First to download the Spin-tool.zip, Unzip and then click Run.bat, fill the log path to Spin, and select the Spin file.  
+   <img src="Run.png" width="250px" />
+  For code user:
    First to add dependency
    ~~~
    repositories {
@@ -58,7 +58,7 @@ First Create the Spin file. The example Spin file will be introduced later.
    *Flow* :
    > To get the message will change during the one log scope, and this kind key word can make a flow of work.
 ### Spin file
-  1. First apply the plugin you need , the default BasePlugin already apply by default
+   First apply the plugin you need , the default BasePlugin already apply by default
 ~~~
 apply "AndroidPlugin" //Apply Plugin
 
@@ -68,13 +68,13 @@ android{
    process "com.xx.xx.xxx", "com.xx.xx.xxx"
 }
 ~~~
-  2. Set the log path to Spin system
+   Set the log path to Spin system
 ~~~
 logSet{
    logPath = ["xx","xx"] //log path
 }
 ~~~
-  3. Some examples of basic elements , which are supported in BasePlugin.  
+   Some examples of basic elements , which are supported in BasePlugin.  
 ~~~
 info {
    name1 {
