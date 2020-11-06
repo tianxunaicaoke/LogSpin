@@ -205,4 +205,4 @@ Then publish it to maven, for other people to use.
 <img src="design.png" />
 
 ## code structure
-<img src="componect.png">
+<img src="component.png">
