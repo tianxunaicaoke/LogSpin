@@ -14,7 +14,27 @@ LogSpin is for user to custom the way to get information for log. You can custom
 ## Get Start
 ### Quick Use
 First Create the Spin file. The example Spin file will be introduced later.
- 
+  
+  The out put is a report under the current folder:
+  ~~~
+ ----------LoginSpin----------
+ ======> info
+ information1 : value1
+ information2 : value2
+ information3 : value3
+ ==========>  process:
+ some condiction1   [unknown/ok]
+ some condiction2   [unknown/ok]
+ some condiction3   [unknown/ok]
+ some condiction4   [unknown/ok]
+ ==========>  flow:
+ [ xxflowname ]  {
+  data time  process  thread ...(one item log)
+  data time  process  thread ...(one item log)
+  data time  process  thread ...(one item log)
+ }  
+ ~~~
+  
   For tool user:
   
    First to download the Spin-tool.zip, Unzip and then click Run.bat, fill the log path to Spin, and select the Spin file.  
