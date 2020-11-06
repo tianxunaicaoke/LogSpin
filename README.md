@@ -1,8 +1,14 @@
 # LogSpin  
 <img src="Spin.png" width="150px" alt="Spin Logo" />
-
-[toc]
-
+- [LogSpin](#logspin)
+  - [Get Start](#get-start)
+    - [Quick Use](#quick-use)
+    - [Base Element](#base-element)
+    - [Spin file](#spin-file)
+    - [how to apply the plugin](#how-to-apply-the-plugin)
+    - [how to write plugin](#how-to-write-plugin)
+    - [how to export the plugin](#how-to-export-the-plugin)
+  - [framework](#framework)
  LogSpin is for user to custom the way to get information for log. You can customize the spin file to adapt to different scenarios, and you can extend its functionality by customizing plugins. LogSpin offers a flexible model that can support the different usage requirements for anyone.
 
 ## Get Start
@@ -12,7 +18,7 @@ First Create the Spin file. The example Spin file will be introduced later.
    > First to download the Spin-tool.zip, Unzip and then click Run.bat, fill the log path to Spin, and select the Spin file.  
 <img src="Run.png" width="250px" />
  2. For code user:
-   > First to add dependency
+   First to add dependency
    ~~~
    repositories {
          maven{
@@ -25,7 +31,7 @@ First Create the Spin file. The example Spin file will be introduced later.
     implementation 'org.xtian.logspin:launch:1.1-SNAPSHOT'
   }
    ~~~
-  >Then to create a main function like:
+  Then to create a main function like:
   ~~~
   import org.logSpin.launch.LauncherHelper;
   
@@ -36,7 +42,7 @@ First Create the Spin file. The example Spin file will be introduced later.
       }
   }
   ~~~
-  >And then you can run main with spin file path as args.
+  And then you can run main with spin file path as args.
 ### Base Element
    *Info* :
    > To get the message not changed in the hole log file.
@@ -94,7 +100,7 @@ def name3 = {
    when "condition1","condition2"
 }
 
-when name2, name3 then "print result"
+when name2, name3 then "print result"- [LogSpin](#logspin)
 ~~~
 ~~~
 flow {
