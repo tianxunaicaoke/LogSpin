@@ -24,6 +24,9 @@ public class FlowCase extends DefaultCase {
 
     @Override
     public void action(SpinProcess spinProcess) {
+        if(variants.isEmpty()){
+            variants.add(new Variant("",""));
+        }
         variants.forEach(
                 variant -> {
                     flows.forEach(Flow::reset);
@@ -38,7 +41,7 @@ public class FlowCase extends DefaultCase {
         if (flows.stream().allMatch(flow -> flow.getFlowValue().size() == 0)) {
             return;
         }
-        stringList.add("==========>  process:" + variant.getKey());
+        stringList.add("==========>  flow:" + variant.getKey());
         flows.forEach(
                 flow -> {
                     stringList.add("[ " + flow.getName() + " ]  {");

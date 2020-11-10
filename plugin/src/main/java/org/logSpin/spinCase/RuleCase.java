@@ -24,6 +24,9 @@ public class RuleCase extends DefaultCase {
 
     @Override
     public void action(SpinProcess spinProcess) {
+        if(variants.isEmpty()){
+            variants.add(new Variant("",""));
+        }
         variants.forEach(
                 variant -> {
                     rules.forEach(Rule::resetRule);
@@ -58,7 +61,7 @@ public class RuleCase extends DefaultCase {
     private void writeToReport(Variant variant, SpinProcess spinProcess) {
         List<String> stringList = new ArrayList<>();
         if (rules.stream().anyMatch(Rule::isMeetWhen)) {
-            stringList.add("==========>  process:" + variant.getKey());
+            stringList.add("==========>  Rule:" + variant.getKey());
             rules.forEach(
                     rule ->
                             stringList.add(rule.getThen() + "   " + (rule.isMeetWhen() ? "[ok]" : "[unknown]"))

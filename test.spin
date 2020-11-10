@@ -1,12 +1,6 @@
-apply "AndroidPlugin"
-apply "NavigationPlugin"
 
 logSet{
    logPath = ["C:\\Users\\xtian\\Desktop\\main.log","C:\\Users\\xtian\\Desktop\\main1.log","C:\\Users\\xtian\\Desktop\\main2.log"]
-}
-
-android{
-   process "com.telenav.app.denali.na"
 }
 
 info {
