@@ -41,10 +41,10 @@ when hasCard, mount then "123"
 
 flow {
   pageState{
-   key "onPageStart","onPageStop"
+   key ".*22:47:24.005.*beyond type entryCount.*"
   }
 
   ShowEteOnCluster{
-  key "invoke refreshETAByNavKit","notify smart card estimation time: topBox","Received notifyListContentChanged request"
+   key "invoke refreshETAByNavKit","notify smart card estimation time: topBox","Received notifyListContentChanged request"
   }
 }

@@ -14,7 +14,7 @@ class FileUtil {
      */
     static Response checkOnce(keys, line, action) {
         def r = keys.find {
-            if (!it.isAlreadyFound() && line.contains(it.getKey())
+            if (!it.isAlreadyFound() && (line.contains(it.getKey()) || line ==~ it.key)
                     && (it.getVariant() == null || it.getVariant() != null && line.contains(it.getVariant()))) {
                 it.setAlreadyFound(true)
                 return true
@@ -46,7 +46,7 @@ class FileUtil {
      */
     static Response checkAll(keys, line, action) {
         def r = keys.find {
-            line.contains(it.key)&&line.contains(it.variant)
+            (line.contains(it.key) || line ==~ it.key) && line.contains(it.variant)
         }
         action(line, r)
     }
@@ -65,7 +65,7 @@ class FileUtil {
             path ->
                 File file = new File(path as String)
                 file.eachLine {
-                    line ,number->
+                    line, number ->
                         def value = check(keys, line, action)
                         if (value) {
                             observable.next(value)
@@ -80,8 +80,8 @@ class FileUtil {
             path ->
                 File file = new File(path as String)
                 file.eachLine {
-                    line ,number->
-                        observables.each{
+                    line, number ->
+                        observables.each {
                             observable -> observable.next(line)
                         }
                 }
