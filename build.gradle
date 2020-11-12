@@ -21,7 +21,7 @@ dependencies {
     compile(project(":foundation"))
     compile(project(":plugin"))
     compile(project(":logProcess"))
-    annotationProcessor(project(":annotation"))
+    annotationProcessor(project(":annotationProcessor"))
 }
 
 publishing {

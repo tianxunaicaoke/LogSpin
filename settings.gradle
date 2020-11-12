@@ -5,5 +5,6 @@ include 'core'
 include 'foundation'
 include 'logProcess'
 include 'androidPlugin'
-include 'annotation'
+include 'annotationProcessor'
+include 'eChartPlugin'
 
