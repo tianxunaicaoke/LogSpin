@@ -6,4 +6,5 @@ include 'foundation'
 include 'logProcess'
 include 'androidPlugin'
 include 'annotationProcessor'
+include 'eChartPlugin'
 
