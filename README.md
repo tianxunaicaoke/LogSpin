@@ -1,7 +1,7 @@
 # <img src="Spin.png" width="50px" alt="Spin Logo" />  LogSpin  
 
 LogSpin is for user to custom the way to get information form log. You can customize the spin file to adapt to different scenarios, and you can extend its functionality by customizing plugins. LogSpin offers a flexible model that can support the different usage requirements for anyone.
-- [LogSpin](#logspin)
+- [<img src="Spin.png" width="50px" alt="Spin Logo" />  LogSpin](#img-srcspinpng-width50px-altspin-logo--logspin)
   - [Get Start](#get-start)
     - [Quick Use](#quick-use)
     - [Base Element](#base-element)
@@ -10,6 +10,9 @@ LogSpin is for user to custom the way to get information form log. You can custo
     - [how to write plugin](#how-to-write-plugin)
     - [how to export the plugin](#how-to-export-the-plugin)
   - [framework](#framework)
+  - [code structure](#code-structure)
+  - [Plugin](#plugin)
+    - [Echart Plugin](#echart-plugin)
   
 ## Get Start
 ### Quick Use
