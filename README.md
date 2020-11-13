@@ -226,3 +226,67 @@ Then publish it to maven, for other people to use.
 
 ## code structure
 <img src="component.png">
+
+## Plugin
+This section will list all build in Plugin.
+
+### Echart Plugin
+The Echart link :https://echarts.apache.org/zh/index.html 
+This plugin has integrated the Echart. Now only support line chart.
+The spin file like below.
+~~~
+apply "EchartPlugin"
+
+logSet{
+   logPath = ["xx.log"]
+}
+
+chart{
+   http("line") {
+     title "Some process memory (MB)"
+     legend "available","rss","vmSize","Total"
+     series {
+       available {
+        key "Available(MB):"
+       }
+       rss {
+        key "Rss(MB):"
+       }
+       vmSize {
+        key "VmSize(MB):"
+       }
+       total {
+        key "Total(MB):"
+       }
+     }
+   }
+}
+~~~
+And the response is like:
+
+<image src="LineChart.png" />
+
+And you also can set data in Spin file like
+
+~~~
+apply "EchartPlugin"
+
+chart{
+   http("line") {
+     title "some title"
+     x 1,2,3,4,5,6
+     series {
+       line1 {
+        data 13,4,15,6,7,18
+       }
+       line2 {
+        data 8,7,16,5,14,3
+       }
+     }
+   }
+}
+~~~
+The response is :
+
+<image src="LineChart1.png" />
+
