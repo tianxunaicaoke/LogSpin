@@ -50,6 +50,7 @@ public class InfoCase extends DefaultCase {
                         infoList.add(info.getDescription()+" : "+info.getValue());
                 }
         );
+        if(!infoList.isEmpty())
         spinProcess.invokeMethod("writeInfo", infoList);
     }
 }

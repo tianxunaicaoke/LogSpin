@@ -1,8 +1,12 @@
 package org.logspin.chart;
 
 import com.github.abel533.echarts.Option;
+import com.github.abel533.echarts.code.Orient;
 import com.github.abel533.echarts.code.Tool;
+import com.github.abel533.echarts.code.X;
+import com.github.abel533.echarts.code.Y;
 import com.github.abel533.echarts.json.GsonOption;
+import com.github.abel533.echarts.series.Series;
 import groovy.lang.Closure;
 import org.logspin.echartplugin.SeriesContainer;
 
@@ -28,10 +32,14 @@ public abstract class BaseChart {
 
     public void legend(Object... names) {
         option.legend(names);
+        option.getLegend()
+                .orient(Orient.horizontal).y("5%");
     }
 
     public void title(String title) {
         option.title(title);
+        option.getTitle()
+                .x(X.center);
     }
 
     protected abstract SeriesContainer getSeriesContainer();
@@ -40,7 +48,7 @@ public abstract class BaseChart {
         SeriesContainer seriesContainer = getSeriesContainer();
         seriesContainer.configure(closure, seriesContainer);
         seriesContainer.getList().forEach(
-                s -> option.series(s));
+                s -> option.series((Series) s));
         return seriesContainer;
     }
 }

@@ -6,15 +6,15 @@ import org.logspin.data.DataResource;
 public class ELine extends Line implements SeriesExtend {
 
     private DataResource dataResource = DataResource.Spin;
-    private String str = null;
+    private String key = null;
 
-
-    public String getStr() {
-        return str;
+    @Override
+    public String getKey() {
+        return key;
     }
 
-    public void data(String key) {
-        str = key;
+    public void key(String key) {
+        this.key = key;
         dataResource = DataResource.Log;
     }
 

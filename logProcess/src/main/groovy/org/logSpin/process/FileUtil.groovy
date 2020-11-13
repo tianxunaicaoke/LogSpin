@@ -52,6 +52,26 @@ class FileUtil {
     }
 
     /**
+     * To check if the line contain the keys.
+     * @param keys
+     * @param line
+     * @param action
+     * @return Response
+     */
+    static List<Response> checkAlls(keys, line, action) {
+        List<Response> responses = new ArrayList<>();
+        keys.forEach{
+            if((line.contains(it.key) || line ==~ it.key) && line.contains(it.variant)){
+                responses.add(action(line,it))
+            }
+        }
+        if(responses.isEmpty())
+            null
+        else
+            responses
+    }
+
+    /**
      * Check the file under the logPath, find the line match the request, then invoke action, and notify to invoker.
      * @param logPath
      * @param keys
@@ -67,8 +87,10 @@ class FileUtil {
                 file.eachLine {
                     line, number ->
                         def value = check(keys, line, action)
-                        if (value) {
+                        if (value instanceof Response) {
                             observable.next(value)
+                        }else if(value instanceof ArrayList){
+                            value.forEach({ it -> observable.next(it) })
                         }
                         value
                 }
@@ -101,5 +123,15 @@ class FileUtil {
                 .replace(":", "")
                 .find("[^ ].*")
                 .find("[^ ]*")
+    }
+
+    /**
+     * Use regex to get the first data behind the key
+     * @param line
+     * @param key
+     * @return value
+     */
+    static String getData(line, key) {
+        getValue(line,key).find("[0-9\\.]*");
     }
 }
