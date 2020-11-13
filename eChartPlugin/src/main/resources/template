@@ -1,0 +1,17 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script src="echarts.min.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        option =
+        ##option##
+        ;
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
