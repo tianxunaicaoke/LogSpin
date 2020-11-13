@@ -36,7 +36,22 @@ class FileGeneralHelper {
         }
     }
 
+    static def findData(logPath, object) {
+        def keys = object[0] as List<Request>
+        def observable = object[1] as Observable<Response>
+        FileUtil.forEachLineOfFile(logPath, keys, FileUtil.&checkAlls, observable) {
+            line, r ->
+                def response = null
+                if (r) {
+                    response = new Response()
+                    response.key = r.getKey()
+                    response.value = FileUtil.getData(line, r.getKey())
+                }
+                return response
+        }
+    }
+
     static def findLine(logPath, List<Observable<String>> observables) {
-        FileUtil.forEachLineOfFile(logPath,observables)
+        FileUtil.forEachLineOfFile(logPath, observables)
     }
 }

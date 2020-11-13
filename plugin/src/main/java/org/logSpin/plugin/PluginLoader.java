@@ -3,6 +3,7 @@ package org.logSpin.plugin;
 import org.logSpin.Plugin;
 import org.logSpin.Spin;
 import org.logSpin.dynamicJar.PluginJarHandler;
+import org.logspin.echartplugin.EchartPlugin;
 
 public class PluginLoader {
     PluginRegister pluginRegister;
@@ -16,14 +17,15 @@ public class PluginLoader {
     public void loadAllInternalPlugin() {
         pluginRegister.register("BasePlugin", BasePlugin.class);
         pluginRegister.register("AndroidPlugin", AndroidPlugin.class);
+        pluginRegister.register("EchartPlugin", EchartPlugin.class);
     }
 
     @SuppressWarnings("unused")
-    public void loadExternalPlugin(String pluginId,Class<? extends Plugin<Spin>> clazz){
-        pluginRegister.register(pluginId,clazz);
+    public void loadExternalPlugin(String pluginId, Class<? extends Plugin<Spin>> clazz) {
+        pluginRegister.register(pluginId, clazz);
     }
 
-    public void loadExternalPluginUnderFolder(){
+    public void loadExternalPluginUnderFolder() {
         pluginHandler.getPlugins().forEach(this::loadExternalPlugin);
     }
 }

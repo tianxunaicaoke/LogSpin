@@ -26,4 +26,5 @@ dependencies {
     implementation(project(":foundation"))
     implementation(project(":core"))
     implementation(project(":androidPlugin"))
+    implementation(project(":eChartPlugin"))
 }

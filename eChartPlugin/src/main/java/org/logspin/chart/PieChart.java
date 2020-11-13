@@ -2,11 +2,8 @@ package org.logspin.chart;
 
 import com.github.abel533.echarts.Option;
 import com.github.abel533.echarts.code.Trigger;
-import groovy.lang.Closure;
 import org.logspin.data.PieData;
 import org.logspin.echartplugin.SeriesContainer;
-
-import java.util.List;
 
 public class PieChart extends BaseChart implements Chart<PieData> {
     @Override
@@ -17,7 +14,7 @@ public class PieChart extends BaseChart implements Chart<PieData> {
     }
 
     @Override
-    public void assembleData(List<PieData> list) {
+    public void assembleData(PieData data) {
 
     }
 

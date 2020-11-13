@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 
 @SuppressWarnings("unused")
-@org.logSpin.annotation.Plugin
 public class EchartPlugin implements Plugin<Spin> {
     private ChartContainer chartContainer;
     private Spin spin;

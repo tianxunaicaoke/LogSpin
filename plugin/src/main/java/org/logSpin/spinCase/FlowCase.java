@@ -24,8 +24,8 @@ public class FlowCase extends DefaultCase {
 
     @Override
     public void action(SpinProcess spinProcess) {
-        if(variants.isEmpty()){
-            variants.add(new Variant("",""));
+        if (variants.isEmpty()) {
+            variants.add(new Variant("", ""));
         }
         variants.forEach(
                 variant -> {

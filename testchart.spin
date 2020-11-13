@@ -6,14 +6,20 @@ logSet{
 
 chart{
    http("line") {
-     title "denali http line chart"
-     legend "traffic","search"
+     title "Denali navkit memory (MB)"
+     legend "available","rss","vmSize","Total"
      series {
-       traffic{
-        data "memory use: current ="
+       available {
+        key "Available(MB):"
        }
-       search{
-        data 10,12,13,14,12,42,21,11
+       rss {
+        key "Rss(MB):"
+       }
+       vmSize {
+        key "VmSize(MB):"
+       }
+       total {
+        key "Total(MB):"
        }
      }
    }
