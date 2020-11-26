@@ -3,6 +3,7 @@ package org.logspin.extendChartForJava;
 import com.github.abel533.echarts.series.Line;
 import org.logspin.data.DataResource;
 
+@SuppressWarnings("unused")
 public class ELine extends Line implements SeriesExtend {
 
     private DataResource dataResource = DataResource.Spin;
