@@ -61,9 +61,11 @@ public class ChartCase extends DefaultCase {
                             );
                 }
         );
-        spinProcess.invokeMethod("findData", requests, (Observable<Response>) response -> lineData.putData(response.getKey(), response.getValue()));
-        charts.forEach(
-                chart -> chart.assembleData(lineData)
-        );
+        if(!requests.isEmpty()) {
+            spinProcess.invokeMethod("findData", requests, (Observable<Response>) response -> lineData.putData(response.getKey(), response.getValue()));
+            charts.forEach(
+                    chart -> chart.assembleData(lineData)
+            );
+        }
     }
 }
